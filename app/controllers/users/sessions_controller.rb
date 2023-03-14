@@ -8,7 +8,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
-    log_out_success && return unless current_user # default was if current user, I changed it to unless because on success logout, it was returning nothing happened which was wrong.
+    log_out_success && return unless current_user
 
     log_out_failure
   end
