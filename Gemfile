@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) { |repo| "git@github.com:#{repo}.git" }
 
 ruby "3.2.1"
 
@@ -15,6 +15,8 @@ gem "mysql2"
 gem "figaro"
 
 gem "rswag"
+# gem "application_server_management", path: '/Users/nitish/SHU/System Design/application_server_management'
+gem "application_server_management", github: 'nitishkumargupta/application_server_management', branch: 'main'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"

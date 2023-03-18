@@ -1,145 +1,1894 @@
-#To Edit   https://editor.swagger.io/
 openapi: 3.0.1
 info:
-  title: API V1
-  version: v1
-paths:
-  "/member-data":
-    get:
-      summary: show member
-      responses:
-        '200':
-          description: successful
-  "/users":
-    post:
-      summary: create user
-      parameters: []
-      responses:
-        '200':
-          description: successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: Signed up sucessfully.
-        '422':
-          description: not a valid request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: Required fields are missing
-        '409':
-          description: user exists
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: User already exists. Please try with another email
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: object
-                  properties:
-                    email:
-                      type: string
-                    password:
-                      type: string
-              required: true
-              example:
-                user:
-                  email: test@example.com
-                  password: '12345678'
-  "/users/sign_in":
-    post:
-      summary: create session
-      parameters: []
-      responses:
-        '200':
-          description: successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  id_token:
-                    type: string
-                example:
-                  message: You are logged in.
-                  id_token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjc4OTA4MTMyLCJleHAiOjE2Nzg5MTE3MzIsImp0aSI6ImRjYTMwNWUxLWJlNjMtNDNjMi04ZWZmLWZkM2I1MGQ4NTcwMCJ9.mEp5ME7MNBSC_io1DUZdYBJIMQqE497bz9LOIrZJs3g
-        '401':
-          description: unauthorized
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-              required: true
-              example:
-                email: test@example.com
-                password: '12345678'
-  "/users/sign_out":
-    delete:
-      summary: delete session
-      security:
-      - BearerAuth: []
-      responses:
-        '200':
-          description: successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: You are logged out.
-        '401':
-          description: unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                example:
-                  message: Hmm nothing happened.
+  title: Sddp Jhipster API
+  description: Sddp Jhipster API documentation
+  termsOfService: ""
+  contact:
+    name: ""
+    url: ""
+    email: ""
+  license:
+    name: unlicensed
+    url: ""
+  version: 0.0.1
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: localhost:3000
-- url: https://{defaultHost}
-  variables:
-    defaultHost:
-      default: localhost:3000
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/tokens/{id}:
+    get:
+      tags:
+        - token-resource
+      operationId: getToken
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Token"
+    put:
+      tags:
+        - token-resource
+      operationId: updateToken
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Token"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Token"
+    delete:
+      tags:
+        - token-resource
+      operationId: deleteToken
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - token-resource
+      operationId: partialUpdateToken
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Token"
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/Token"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Token"
+  /api/organizations/{id}:
+    get:
+      tags:
+        - organization-resource
+      operationId: getOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Organization"
+    put:
+      tags:
+        - organization-resource
+      operationId: updateOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organization"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Organization"
+    delete:
+      tags:
+        - organization-resource
+      operationId: deleteOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - organization-resource
+      operationId: partialUpdateOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organization"
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/Organization"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Organization"
+  /api/http-logs/{id}:
+    get:
+      tags:
+        - http-log-resource
+      operationId: getHttpLog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/HttpLog"
+    put:
+      tags:
+        - http-log-resource
+      operationId: updateHttpLog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HttpLog"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/HttpLog"
+    delete:
+      tags:
+        - http-log-resource
+      operationId: deleteHttpLog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - http-log-resource
+      operationId: partialUpdateHttpLog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HttpLog"
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/HttpLog"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/HttpLog"
+  /api/applications/{id}:
+    get:
+      tags:
+        - application-resource
+      operationId: getApplication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Application"
+    put:
+      tags:
+        - application-resource
+      operationId: updateApplication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Application"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Application"
+    delete:
+      tags:
+        - application-resource
+      operationId: deleteApplication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - application-resource
+      operationId: partialUpdateApplication
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Application"
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/Application"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Application"
+  /api/alert-subscribers/{id}:
+    get:
+      tags:
+        - alert-subscriber-resource
+      operationId: getAlertSubscriber
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertSubscriber"
+    put:
+      tags:
+        - alert-subscriber-resource
+      operationId: updateAlertSubscriber
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertSubscriber"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertSubscriber"
+    delete:
+      tags:
+        - alert-subscriber-resource
+      operationId: deleteAlertSubscriber
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - alert-subscriber-resource
+      operationId: partialUpdateAlertSubscriber
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertSubscriber"
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/AlertSubscriber"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertSubscriber"
+  /api/alert-events/{id}:
+    get:
+      tags:
+        - alert-event-resource
+      operationId: getAlertEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertEvent"
+    put:
+      tags:
+        - alert-event-resource
+      operationId: updateAlertEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertEvent"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertEvent"
+    delete:
+      tags:
+        - alert-event-resource
+      operationId: deleteAlertEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+    patch:
+      tags:
+        - alert-event-resource
+      operationId: partialUpdateAlertEvent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertEvent"
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/AlertEvent"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertEvent"
+  /api/admin/users:
+    get:
+      tags:
+        - user-resource
+      operationId: getAllUsers
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminUserDTO"
+    put:
+      tags:
+        - user-resource
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AdminUserDTO"
+    post:
+      tags:
+        - user-resource
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/User"
+  /api/tokens:
+    get:
+      tags:
+        - token-resource
+      operationId: getAllTokens
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: eagerload
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Token"
+    post:
+      tags:
+        - token-resource
+      operationId: createToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Token"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Token"
+  /api/sddp-jhipster-kafka/publish:
+    post:
+      tags:
+        - sddp-jhipster-kafka-resource
+      operationId: publish
+      parameters:
+        - name: message
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /api/register:
+    post:
+      tags:
+        - account-resource
+      operationId: registerAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ManagedUserVM"
+        required: true
+      responses:
+        "201":
+          description: Created
+  /api/organizations:
+    get:
+      tags:
+        - organization-resource
+      operationId: getAllOrganizations
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Organization"
+    post:
+      tags:
+        - organization-resource
+      operationId: createOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organization"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Organization"
+  /api/http-logs:
+    get:
+      tags:
+        - http-log-resource
+      operationId: getAllHttpLogs
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: eagerload
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HttpLog"
+    post:
+      tags:
+        - http-log-resource
+      operationId: createHttpLog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HttpLog"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/HttpLog"
+  /api/authenticate:
+    get:
+      tags:
+        - account-resource
+      operationId: isAuthenticated
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+    post:
+      tags:
+        - user-jwt-controller
+      operationId: authorize
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginVM"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/JWTToken"
+  /api/applications:
+    get:
+      tags:
+        - application-resource
+      operationId: getAllApplications
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: eagerload
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Application"
+    post:
+      tags:
+        - application-resource
+      operationId: createApplication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Application"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Application"
+  /api/alert-subscribers:
+    get:
+      tags:
+        - alert-subscriber-resource
+      operationId: getAllAlertSubscribers
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: eagerload
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlertSubscriber"
+    post:
+      tags:
+        - alert-subscriber-resource
+      operationId: createAlertSubscriber
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertSubscriber"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertSubscriber"
+  /api/alert-events:
+    get:
+      tags:
+        - alert-event-resource
+      operationId: getAllAlertEvents
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: eagerload
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlertEvent"
+    post:
+      tags:
+        - alert-event-resource
+      operationId: createAlertEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AlertEvent"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AlertEvent"
+  /api/account:
+    get:
+      tags:
+        - account-resource
+      operationId: getAccount
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AdminUserDTO"
+    post:
+      tags:
+        - account-resource
+      operationId: saveAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/account/reset-password/init:
+    post:
+      tags:
+        - account-resource
+      operationId: requestPasswordReset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/account/reset-password/finish:
+    post:
+      tags:
+        - account-resource
+      operationId: finishPasswordReset
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KeyAndPasswordVM"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/account/change-password:
+    post:
+      tags:
+        - account-resource
+      operationId: changePassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PasswordChangeDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/users:
+    get:
+      tags:
+        - public-user-resource
+      operationId: getAllPublicUsers
+      parameters:
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserDTO"
+  /api/sddp-jhipster-kafka/unregister:
+    get:
+      tags:
+        - sddp-jhipster-kafka-resource
+      operationId: unregister
+      responses:
+        "200":
+          description: OK
+  /api/sddp-jhipster-kafka/register:
+    get:
+      tags:
+        - sddp-jhipster-kafka-resource
+      operationId: register
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ResponseBodyEmitter"
+  /api/authorities:
+    get:
+      tags:
+        - public-user-resource
+      operationId: getAuthorities
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: string
+  /api/admin/users/{login}:
+    get:
+      tags:
+        - user-resource
+      operationId: getUser
+      parameters:
+        - name: login
+          in: path
+          required: true
+          schema:
+            pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/AdminUserDTO"
+    delete:
+      tags:
+        - user-resource
+      operationId: deleteUser
+      parameters:
+        - name: login
+          in: path
+          required: true
+          schema:
+            pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
+            type: string
+      responses:
+        "200":
+          description: OK
+  /api/activate:
+    get:
+      tags:
+        - account-resource
+      operationId: activateAccount
+      parameters:
+        - name: key
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /api/_search/users/{query}:
+    get:
+      tags:
+        - public-user-resource
+      operationId: search
+      parameters:
+        - name: query
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserDTO"
+  /api/_search/tokens:
+    get:
+      tags:
+        - token-resource
+      operationId: searchTokens
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Token"
+  /api/_search/organizations:
+    get:
+      tags:
+        - organization-resource
+      operationId: searchOrganizations
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Organization"
+  /api/_search/http-logs:
+    get:
+      tags:
+        - http-log-resource
+      operationId: searchHttpLogs
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HttpLog"
+  /api/_search/applications:
+    get:
+      tags:
+        - application-resource
+      operationId: searchApplications
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Application"
+  /api/_search/alert-subscribers:
+    get:
+      tags:
+        - alert-subscriber-resource
+      operationId: searchAlertSubscribers
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlertSubscriber"
+  /api/_search/alert-events:
+    get:
+      tags:
+        - alert-event-resource
+      operationId: searchAlertEvents
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Zero-based page index (0..N)
+          required: false
+          schema:
+            minimum: 0
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: The size of the page to be returned
+          required: false
+          schema:
+            minimum: 1
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlertEvent"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
+  schemas:
+    Application:
+      required:
+        - code
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        code:
+          type: string
+        alertResponseCodes:
+          type: string
+    Token:
+      required:
+        - accessToken
+        - application
+        - isActive
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiryDate:
+          type: string
+          format: date
+        isActive:
+          type: boolean
+        application:
+          $ref: "#/components/schemas/Application"
+    Organization:
+      required:
+        - address
+        - code
+        - email
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        code:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+    HttpLog:
+      required:
+        - application
+        - duration
+        - httpMethod
+        - httpStatusCode
+        - remoteIPAddress
+        - requestHeaders
+        - requestTimestamp
+        - requestUrl
+        - responseHeaders
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        requestTimestamp:
+          type: string
+          format: date-time
+        httpMethod:
+          type: string
+          enum:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - HEAD
+            - OPTIONS
+            - CONNECT
+            - TRACE
+            - PATCH
+        requestUrl:
+          type: string
+        httpStatusCode:
+          type: string
+          enum:
+            - CONTINUE
+            - SWITCHING_PROTOCOLS
+            - PROCESSING
+            - CHECKPOINT
+            - OK
+            - CREATED
+            - ACCEPTED
+            - NON_AUTHORITATIVE_INFORMATION
+            - NO_CONTENT
+            - RESET_CONTENT
+            - PARTIAL_CONTENT
+            - MULTI_STATUS
+            - ALREADY_REPORTED
+            - IM_USED
+            - MULTIPLE_CHOICES
+            - MOVED_PERMANENTLY
+            - FOUND
+            - MOVED_TEMPORARILY
+            - SEE_OTHER
+            - NOT_MODIFIED
+            - USE_PROXY
+            - TEMPORARY_REDIRECT
+            - PERMANENT_REDIRECT
+            - BAD_REQUEST
+            - UNAUTHORIZED
+            - PAYMENT_REQUIRED
+            - FORBIDDEN
+            - NOT_FOUND
+            - METHOD_NOT_ALLOWED
+            - NOT_ACCEPTABLE
+            - PROXY_AUTHENTICATION_REQUIRED
+            - REQUEST_TIMEOUT
+            - CONFLICT
+            - GONE
+            - LENGTH_REQUIRED
+            - PRECONDITION_FAILED
+            - PAYLOAD_TOO_LARGE
+            - REQUEST_ENTITY_TOO_LARGE
+            - URI_TOO_LONG
+            - REQUEST_URI_TOO_LONG
+            - UNSUPPORTED_MEDIA_TYPE
+            - REQUESTED_RANGE_NOT_SATISFIABLE
+            - EXPECTATION_FAILED
+            - I_AM_A_TEAPOT
+            - INSUFFICIENT_SPACE_ON_RESOURCE
+            - METHOD_FAILURE
+            - DESTINATION_LOCKED
+            - UNPROCESSABLE_ENTITY
+            - LOCKED
+            - FAILED_DEPENDENCY
+            - TOO_EARLY
+            - UPGRADE_REQUIRED
+            - PRECONDITION_REQUIRED
+            - TOO_MANY_REQUESTS
+            - REQUEST_HEADER_FIELDS_TOO_LARGE
+            - UNAVAILABLE_FOR_LEGAL_REASONS
+            - INTERNAL_SERVER_ERROR
+            - NOT_IMPLEMENTED
+            - BAD_GATEWAY
+            - SERVICE_UNAVAILABLE
+            - GATEWAY_TIMEOUT
+            - HTTP_VERSION_NOT_SUPPORTED
+            - VARIANT_ALSO_NEGOTIATES
+            - INSUFFICIENT_STORAGE
+            - LOOP_DETECTED
+            - BANDWIDTH_LIMIT_EXCEEDED
+            - NOT_EXTENDED
+            - NETWORK_AUTHENTICATION_REQUIRED
+        remoteIPAddress:
+          type: string
+        duration:
+          type: integer
+          format: int32
+        requestHeaders:
+          type: string
+        responseHeaders:
+          type: string
+        requestURLParameters:
+          type: string
+        requestBody:
+          type: string
+        requestCookies:
+          type: string
+        responseCookies:
+          type: string
+        application:
+          $ref: "#/components/schemas/Application"
+    AlertSubscriber:
+      required:
+        - email
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        applications:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/Application"
+    AlertEvent:
+      required:
+        - alertSubscriber
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        code:
+          type: string
+        applicationCode:
+          type: string
+        isSent:
+          type: boolean
+        alertSubscriber:
+          $ref: "#/components/schemas/AlertSubscriber"
+    AdminUserDTO:
+      required:
+        - login
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        login:
+          maxLength: 50
+          minLength: 1
+          pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
+          type: string
+        firstName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        lastName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        email:
+          maxLength: 254
+          minLength: 5
+          type: string
+        imageUrl:
+          maxLength: 256
+          minLength: 0
+          type: string
+        activated:
+          type: boolean
+        langKey:
+          maxLength: 10
+          minLength: 2
+          type: string
+        createdBy:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedBy:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        authorities:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    ManagedUserVM:
+      required:
+        - login
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        login:
+          maxLength: 50
+          minLength: 1
+          pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
+          type: string
+        firstName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        lastName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        email:
+          maxLength: 254
+          minLength: 5
+          type: string
+        imageUrl:
+          maxLength: 256
+          minLength: 0
+          type: string
+        activated:
+          type: boolean
+        langKey:
+          maxLength: 10
+          minLength: 2
+          type: string
+        createdBy:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        lastModifiedBy:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date-time
+        authorities:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        password:
+          maxLength: 100
+          minLength: 4
+          type: string
+    LoginVM:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 1
+          type: string
+        password:
+          maxLength: 100
+          minLength: 4
+          type: string
+        rememberMe:
+          type: boolean
+    JWTToken:
+      type: object
+      properties:
+        id_token:
+          type: string
+    User:
+      required:
+        - activated
+        - login
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        login:
+          maxLength: 50
+          minLength: 1
+          pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
+          type: string
+        firstName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        lastName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        email:
+          maxLength: 254
+          minLength: 5
+          type: string
+        activated:
+          type: boolean
+        langKey:
+          maxLength: 10
+          minLength: 2
+          type: string
+        imageUrl:
+          maxLength: 256
+          minLength: 0
+          type: string
+        resetDate:
+          type: string
+          format: date-time
+    KeyAndPasswordVM:
+      type: object
+      properties:
+        key:
+          type: string
+        newPassword:
+          type: string
+    PasswordChangeDTO:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+        newPassword:
+          type: string
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        login:
+          type: string
+    ResponseBodyEmitter:
+      type: object
+      properties:
+        timeout:
+          type: integer
+          format: int64
