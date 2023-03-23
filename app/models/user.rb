@@ -7,4 +7,7 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          :registerable,
          jwt_revocation_strategy: JwtDenylist
+
+  has_many :user_authorities
+  has_many :authorities, through: :user_authorities
 end

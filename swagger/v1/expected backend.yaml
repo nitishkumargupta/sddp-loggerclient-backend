@@ -592,6 +592,39 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User'
+
+  /api/admin/users/{email}:
+    get:
+      tags:
+        - user-resource
+      operationId: getUser
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AdminUserDTO'
+    delete:
+      tags:
+        - user-resource
+      operationId: deleteUser
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+
   /api/tokens:
     get:
       tags:
@@ -1155,39 +1188,6 @@ paths:
                 type: array
                 items:
                   type: string
-  /api/admin/users/{login}:
-    get:
-      tags:
-        - user-resource
-      operationId: getUser
-      parameters:
-        - name: login
-          in: path
-          required: true
-          schema:
-            pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/AdminUserDTO'
-    delete:
-      tags:
-        - user-resource
-      operationId: deleteUser
-      parameters:
-        - name: login
-          in: path
-          required: true
-          schema:
-            pattern: ^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$
-            type: string
-      responses:
-        '200':
-          description: OK
   /api/activate:
     get:
       tags:

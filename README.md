@@ -42,5 +42,19 @@ To run app you need:
   devise:
     jwt_secret_key: <rake secret key>
   ```
+  
+* Run migrate
+  ```sh
+  rake db:migrate
+  ```
+
+
+* Run database seed
+  ```sh
+  rake db:seed
+  ```
+
+
+
 
   
