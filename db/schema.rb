@@ -77,6 +77,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_123527) do
     t.integer "application_server_id"
   end
 
+  create_table "authorities", primary_key: "name", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  end
+
   create_table "cars", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "model"
@@ -99,6 +102,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_123527) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_authorities", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "authority_name", null: false
+    t.index ["authority_name"], name: "fk_rails_ee44246579"
+    t.index ["user_id"], name: "index_user_authorities_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -107,10 +117,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_123527) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "user_authorities", "authorities", column: "authority_name", primary_key: "name"
+  add_foreign_key "user_authorities", "users"
 end

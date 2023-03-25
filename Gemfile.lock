@@ -1,5 +1,7 @@
-PATH
-  remote: /Users/nitish/SHU/System Design/application_server_management
+GIT
+  remote: git@github.com:nitishkumargupta/application_server_management.git
+  revision: 235affed9cd84014855ff47d434c3e44001f9eb6
+  branch: main
   specs:
     application_server_management (0.1.0)
       rails (>= 7.0.4.3)
@@ -231,6 +233,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (3.3.1)
     zeitwerk (2.6.7)
 
 PLATFORMS
@@ -252,6 +255,7 @@ DEPENDENCIES
   rswag
   rswag-specs
   tzinfo-data
+  will_paginate (~> 3.3, >= 3.3.0)
 
 RUBY VERSION
    ruby 3.2.1p31
