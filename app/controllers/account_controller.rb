@@ -1,6 +1,6 @@
 # app/controllers/account_controller.rb
 class AccountController < ApplicationController
-  before_action :authenticate_user
+  # before_action :authenticate_user
 
   def get_account
     if @current_user
@@ -61,16 +61,18 @@ class AccountController < ApplicationController
 
   private
 
-  def authenticate_user
-    auth_header = request.headers['Authorization']
-    token = auth_header.split(' ')[1]
-    return head :unauthorized if token.nil?
+  # We do not need this function because it is already defined, and called in the application controller before each action
 
-    begin
-      decoded_token = JWT.decode(token, 'SECRET_KEY', true, { algorithm: 'HS512' })
-      @current_user = User.find_by(email: decoded_token[0]['sub'])
-    rescue JWT::DecodeError
-      head :unauthorized
-    end
-  end
+  # def authenticate_user
+  #   auth_header = request.headers['Authorization']
+  #   token = auth_header.split(' ')[1]
+  #   return head :unauthorized if token.nil?
+
+  #   begin
+  #     decoded_token = JWT.decode(token, 'SECRET_KEY', true, { algorithm: 'HS512' })
+  #     @current_user = User.find_by(email: decoded_token[0]['sub'])
+  #   rescue JWT::DecodeError
+  #     head :unauthorized
+  #   end
+  # end
 end

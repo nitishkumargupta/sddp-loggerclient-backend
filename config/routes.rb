@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :users, param: :email, only: [:index, :show, :create, :update, :destroy]
     end
+
+    resources :organisations, only: %w(show create update)
   end
 
 
