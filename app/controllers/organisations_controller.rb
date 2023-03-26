@@ -1,33 +1,28 @@
 class OrganisationsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[create]
   before_action :set_organisation, only: %i[ show update destroy ]
 
-  # GET /organisations
-  def index
-    @organisations = Organisation.all
-
-    render json: @organisations
-  end
-
-  # GET /organisations/1
   def show
-    render json: @organisation
+    render json: @organisation.to_json
   end
 
-  # POST /organisations
   def create
-    @organisation = Organisation.new(organisation_params)
-
-    if @organisation.save
-      render json: @organisation, status: :created, location: @organisation
+    organisation = Organisation.new(organisation_params)
+    OrganisationUserCreator.new(organisation, params[:users]).create_admin_user
+    if organisation.save
+      render json: organisation.to_json, status: 200
     else
-      render json: @organisation.errors, status: :unprocessable_entity
+      render json: organisation.errors, status: unprocessable_entity
     end
   end
 
   # PATCH/PUT /organisations/1
   def update
-    if @organisation.update(organisation_params)
-      render json: @organisation
+    if @organisation.update(update_params)
+      if params[:users]["password"].present?
+        OrganisationUserCreator.new(@organisation,params[:users],current_user).update_password
+      end
+      render json: @organisation.to_json
     else
       render json: @organisation.errors, status: :unprocessable_entity
     end
@@ -39,13 +34,15 @@ class OrganisationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_organisation
-      @organisation = Organisation.find(params[:id])
+      @organisation = current_user.organisation
     end
 
-    # Only allow a list of trusted parameters through.
     def organisation_params
-      params.require(:organisation).permit(:name, :code, :address, :email)
+      params.require(:organisation).permit(:name, :address, :code, :email, user_attributes: [:password])
+    end
+
+    def update_params
+      params.require(:organisation).permit(:name, :address, user_attributes: [:password])
     end
 end

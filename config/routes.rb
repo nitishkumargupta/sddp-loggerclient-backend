@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :organisations
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   mount ApplicationServerManagement::Engine => "/api"
@@ -21,6 +20,8 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :users, param: :email, only: [:index, :show, :create, :update, :destroy]
     end
+
+    resources :organisations, only: %w(show create update)
   end
 
 
