@@ -5,7 +5,8 @@ class OrganisationsController < ApplicationController
   # app/controllers/organisations_controller.rb
   def index
     if current_user_has_role?('ROLE_ADMIN')
-      organisations = apply_pagination_and_sorting(Organisation)
+      query = params[:query]
+      organisations = apply_pagination_and_sorting(Organisation, query)
       render json: organisations, methods: :user_count, status: :ok
     else
       render json: { error: "You don't have permission to perform this action" }, status: :forbidden

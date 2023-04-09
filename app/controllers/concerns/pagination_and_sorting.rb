@@ -25,11 +25,17 @@ module PaginationAndSorting
     }
   end
 
-  def apply_pagination_and_sorting(scope)
+  def apply_pagination_and_sorting(scope, query = nil)
     pageable = pageable_params
     sort = sort_params
 
-    scope.order("#{sort[:sort_column]} #{sort[:sort_direction]}").paginate(page: pageable[:page], per_page: pageable[:per_page])
+    if query.present?
+      # Use Elasticsearch for searching when a query is provided
+      scope.search(query, pageable.merge(sort))
+    else
+      # Use ActiveRecord for regular listing without searching
+      scope.order("#{sort[:sort_column]} #{sort[:sort_direction]}").paginate(page: pageable[:page], per_page: pageable[:per_page])
+    end
   end
 
   def add_total_count_header(&block)
@@ -49,4 +55,6 @@ module PaginationAndSorting
     controller_name = self.controller_name.classify.constantize
     response.headers['X-Total-Count'] = controller_name.count.to_s
   end
+
+
 end
