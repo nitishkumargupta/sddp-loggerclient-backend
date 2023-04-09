@@ -1,6 +1,5 @@
 # app/controllers/account_controller.rb
 class AccountController < ApplicationController
-  before_action :authenticate_user
   # skip_before_action :authenticate_user!, only: [:register, ]
 
   # Just for Testing
@@ -102,20 +101,6 @@ class AccountController < ApplicationController
   end
 
 
-  private
-
-  def authenticate_user
-    auth_header = request.headers['Authorization']
-    token = auth_header.split(' ')[1]
-    return head :unauthorized if token.nil?
-
-    begin
-      decoded_token = JWT.decode(token, Rails.application.credentials.devise[:jwt_secret_key], true, { algorithm: 'HS512' })
-      @current_user = User.find_by(email: decoded_token[0]['sub'])
-    rescue JWT::DecodeError
-      head :unauthorized
-    end
-  end
 end
 
 

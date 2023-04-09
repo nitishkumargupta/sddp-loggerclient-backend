@@ -1,6 +1,6 @@
 class OrganisationsController < ApplicationController
-  include PaginationAndSorting
   include RoleCheck
+  include PaginationAndSorting
   before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION']) }, only: [:update]
 
   # app/controllers/organisations_controller.rb

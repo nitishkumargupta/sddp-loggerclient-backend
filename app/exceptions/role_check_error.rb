@@ -1,0 +1,1 @@
+class RoleCheckError < StandardError; end

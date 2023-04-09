@@ -6,7 +6,7 @@ module RoleCheck
 
   def check_role_permissions(roles)
     unless roles.any? { |role| current_user_has_role?(role) }
-      render json: { error: "You don't have permission to perform this action" }, status: :forbidden
+      raise RoleCheckError
     end
   end
 
