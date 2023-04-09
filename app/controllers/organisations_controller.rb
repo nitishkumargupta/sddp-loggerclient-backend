@@ -1,19 +1,19 @@
 class OrganisationsController < ApplicationController
   include PaginationAndSorting
-  before_action :check_role_permissions, only: [:update]
+  include RoleCheck
+  before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION']) }, only: [:update]
 
   # app/controllers/organisations_controller.rb
   def index
-    if current_user_has_role?('ROLE_ADMIN')
-      query = params[:query]
-      organisations = apply_pagination_and_sorting(Organisation, query)
-      render json: organisations, methods: :user_count, status: :ok
-    else
-      render json: { error: "You don't have permission to perform this action" }, status: :forbidden
-    end
+    check_role_permissions(['ROLE_ADMIN'])
+    query = params[:query]
+    organisations = apply_pagination_and_sorting(Organisation, query)
+    render json: organisations, methods: :user_count, status: :ok
   end
 
   def show
+    check_role_permissions(['ROLE_ORGANIZATION', 'ROLE_ADMIN'])
+
     if current_user_has_role?('ROLE_ORGANIZATION')
       render json: @organisation.to_json
     elsif current_user_has_role?('ROLE_ADMIN')
@@ -27,18 +27,16 @@ class OrganisationsController < ApplicationController
   end
 
   def create
-    if current_user_has_role?('ROLE_ADMIN')
-      organisation = Organisation.new(organisation_params)
-      if params[:users].present?
-        OrganisationUserCreator.new(organisation, params[:users]).create_admin_user
-      end
-      if organisation.save
-        render json: organisation.to_json, status: 200
-      else
-        render json: organisation.errors, status: unprocessable_entity
-      end
+    check_role_permissions(['ROLE_ADMIN'])
+
+    organisation = Organisation.new(organisation_params)
+    if params[:users].present?
+      OrganisationUserCreator.new(organisation, params[:users]).create_admin_user
+    end
+    if organisation.save
+      render json: organisation.to_json, status: 200
     else
-      render json: { error: "You don't have permission to perform this action" }, status: :forbidden
+      render json: organisation.errors, status: :unprocessable_entity
     end
   end
 
@@ -59,35 +57,22 @@ class OrganisationsController < ApplicationController
       else
         render json: organisation&.errors || { error: "Organisation not found" }, status: :unprocessable_entity
       end
-    else
-      render json: { error: "You don't have permission to perform this action" }, status: :forbidden
     end
   end
 
   # DELETE /organisations/1
   def destroy
-    if current_user_has_role?('ROLE_ADMIN')
-      organisation = Organisation.find_by(id: params[:id])
-      if organisation&.destroy
-        render json: { message: "Organisation deleted" }, status: :ok
-      else
-        render json: { error: "Organisation not found" }, status: :not_found
-      end
+    check_role_permissions(['ROLE_ADMIN'])
+
+    organisation = Organisation.find_by(id: params[:id])
+    if organisation&.destroy
+      render json: { message: "Organisation deleted" }, status: :ok
     else
-      render json: { error: "You don't have permission to perform this action" }, status: :forbidden
+      render json: { error: "Organisation not found" }, status: :not_found
     end
   end
 
   private
-  def check_role_permissions
-    unless current_user_has_role?('ROLE_ADMIN') || current_user_has_role?('ROLE_ORGANIZATION')
-      render json: { error: "You don't have permission to perform this action" }, status: :forbidden
-    end
-  end
-
-  def current_user_has_role?(role)
-    @current_user.authorities.exists?(name: role)
-  end
   def set_organisation
     @organisation = @current_user.organisation
   end
