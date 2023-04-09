@@ -6,9 +6,7 @@ Rails.application.routes.draw do
   scope '/api' do
     post 'authenticate', to: 'authentication#authenticate'
     get 'member-data', to: 'members#show'
-    devise_scope :user do
-      post 'register', to: 'users/registrations#new'
-    end
+    post 'register', to: 'users/registrations#new'
 
     get 'account', to: 'account#get_account'
     post 'account', to: 'account#save_account'
