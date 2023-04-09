@@ -1,17 +1,11 @@
 class OrganisationsController < ApplicationController
+  include PaginationAndSorting
   before_action :check_role_permissions, only: [:update]
 
   # app/controllers/organisations_controller.rb
   def index
     if current_user_has_role?('ROLE_ADMIN')
-      page = params[:page] || 1
-      size = params[:size] || 20
-      sort = params[:sort] || 'id,desc'
-      sort_column, sort_direction = sort.split(',')
-
-      organisations = Organisation.order("#{sort_column} #{sort_direction}").paginate(page: page, per_page: size)
-      response.headers['X-Total-Count'] = Organisation.count.to_s
-
+      organisations = apply_pagination_and_sorting(Organisation)
       render json: organisations, methods: :user_count, status: :ok
     else
       render json: { error: "You don't have permission to perform this action" }, status: :forbidden

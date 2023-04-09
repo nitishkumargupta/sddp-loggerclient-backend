@@ -67,7 +67,12 @@ organisations_data = [
 # Add more organisation data here
 ]
 
-organisations_data.each do |org_data|
+50.times do |n|
+  org_data = organisations_data[n % organisations_data.length].dup
+  org_data[:name] = "#{org_data[:name]} #{n+1}"
+  org_data[:code] = "#{org_data[:code]} #{n+1}"
+  org_data[:email] = "#{n+1} #{org_data[:email]}"
   Organisation.create!(org_data)
 end
+
 
