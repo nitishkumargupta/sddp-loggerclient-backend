@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   scope '/api' do
     post 'authenticate', to: 'authentication#authenticate'
     get 'member-data', to: 'members#show'
-    post 'register', to: 'users/registrations#new'
+    post 'account/register', to: 'account#register'
 
     get 'account', to: 'account#get_account'
     post 'account', to: 'account#save_account'
@@ -21,9 +21,8 @@ Rails.application.routes.draw do
       resources :users, param: :email, only: [:index, :show, :create, :update, :destroy]
     end
 
-    resources :organisations, only: %w(show create update)
+    resources :organizations, only: %w(index show create update destroy), controller: 'organisations'
   end
-
 
   devise_for :users,
              controllers: {

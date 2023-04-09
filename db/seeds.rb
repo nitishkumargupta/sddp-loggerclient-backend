@@ -25,3 +25,49 @@ authority_names = ['ROLE_USER', 'ROLE_ADMIN']
 authority_names.each do |name|
   Authority.create!(name: name)
 end
+
+application_servers = ApplicationServerManagement::ApplicationServer.all
+
+http_logs = 4.times.map do |i|
+  {
+    request_timestamp: Time.now - i.hours,
+    http_method: "GET",
+    request_url: "/api/v1/users",
+    http_status_code: "200",
+    remote_ip_address: "192.168.1.1",
+    duration: 100 + i * 10,
+    request_headers: "{}",
+    response_headers: "{}",
+    request_url_parameters: "{}",
+    request_body: "{}",
+    request_cookies: "{}",
+    response_cookies: "{}"
+  }
+end
+
+application_servers.each do |application_server|
+  http_logs.each do |http_log|
+    HttpLog.create!(http_log.merge(application_id: application_server.id))
+  end
+end
+
+organisations_data = [
+  {
+    name: 'Organisation 1',
+    code: 'ORG1',
+    address: '123 Main St',
+    email: 'org1@example.com'
+  },
+  {
+    name: 'Organisation 2',
+    code: 'ORG2',
+    address: '456 Main St',
+    email: 'org2@example.com'
+  },
+# Add more organisation data here
+]
+
+organisations_data.each do |org_data|
+  Organisation.create!(org_data)
+end
+

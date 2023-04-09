@@ -1,5 +1,7 @@
-PATH
-  remote: /Users/nitish/SHU/System Design/application_server_management
+GIT
+  remote: git@github.com:nitishkumargupta/application_server_management.git
+  revision: 235affed9cd84014855ff47d434c3e44001f9eb6
+  branch: main
   specs:
     application_server_management (0.1.0)
       rails (>= 7.0.4.3)
@@ -140,6 +142,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
+    nokogiri (1.14.2-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.14.2-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
@@ -235,6 +239,7 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-22
   x86_64-linux
 
@@ -259,4 +264,4 @@ RUBY VERSION
    ruby 3.2.1p31
 
 BUNDLED WITH
-   2.2.3
+   2.4.6

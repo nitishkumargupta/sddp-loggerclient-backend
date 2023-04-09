@@ -1,6 +1,47 @@
 # app/controllers/account_controller.rb
 class AccountController < ApplicationController
-  # before_action :authenticate_user
+  before_action :authenticate_user
+  # skip_before_action :authenticate_user!, only: [:register, ]
+
+  # Just for Testing
+  # Just for Testing
+  # Just for Testing
+
+
+  # app/controllers/account_controller.rb
+  def register
+    email = params[:email]
+    password = params[:password]
+    organisation_id = params[:organisation_id]
+
+    # Check if the email is already in use
+    if User.exists?(email: email)
+      render json: { error: 'Email already in use' }, status: :bad_request
+      return
+    end
+
+    organisation = Organisation.find_by(id: organisation_id)
+
+    # Check if the organisation exists
+    unless organisation
+      render json: { error: 'Organisation not found' }, status: :not_found
+      return
+    end
+
+    # Create the new user
+    user = User.new(email: email, password: password, organisation: organisation)
+
+    # Assign the default authority to the user
+    role_user = Authority.find_by(name: 'ROLE_USER')
+    user.authorities << role_user if role_user
+
+    if user.save
+      render json: { message: 'User registration successful' }, status: :created
+    else
+      render json: { error: user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
 
   def get_account
     if @current_user
@@ -12,7 +53,9 @@ class AccountController < ApplicationController
       )
 
       # Extract the 'name' from each authority and replace the authorities array with their names
-      user_data["authorities"] = user_data["authorities"].map { |authority| authority["name"] }
+      if @current_user.authorities.present?
+        user_data["authorities"] = @current_user.authorities.map { |authority| authority["name"] }
+      end
 
       render json: user_data, status: :ok
     else
@@ -40,7 +83,7 @@ class AccountController < ApplicationController
     user.update!(
       first_name: params[:first_name],
       last_name: params[:last_name],
-    )
+      )
 
     head :ok
   end
@@ -61,18 +104,18 @@ class AccountController < ApplicationController
 
   private
 
-  # We do not need this function because it is already defined, and called in the application controller before each action
+  def authenticate_user
+    auth_header = request.headers['Authorization']
+    token = auth_header.split(' ')[1]
+    return head :unauthorized if token.nil?
 
-  # def authenticate_user
-  #   auth_header = request.headers['Authorization']
-  #   token = auth_header.split(' ')[1]
-  #   return head :unauthorized if token.nil?
-
-  #   begin
-  #     decoded_token = JWT.decode(token, 'SECRET_KEY', true, { algorithm: 'HS512' })
-  #     @current_user = User.find_by(email: decoded_token[0]['sub'])
-  #   rescue JWT::DecodeError
-  #     head :unauthorized
-  #   end
-  # end
+    begin
+      decoded_token = JWT.decode(token, Rails.application.credentials.devise[:jwt_secret_key], true, { algorithm: 'HS512' })
+      @current_user = User.find_by(email: decoded_token[0]['sub'])
+    rescue JWT::DecodeError
+      head :unauthorized
+    end
+  end
 end
+
+
