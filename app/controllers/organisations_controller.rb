@@ -6,6 +6,7 @@ class OrganisationsController < ApplicationController
   # @example  GET /api/organizations?q[name_cont]=name&q[code_lt]=10
   def index
     check_role_permissions(['ROLE_ADMIN'])
+    query = params[:query]
     q = params[:q]
     organizations = Organisation.ransack(q).result
     organizations = apply_pagination_and_sorting(organizations, query)
