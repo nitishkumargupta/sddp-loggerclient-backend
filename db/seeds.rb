@@ -20,7 +20,7 @@ names.each_with_index do |name, index|
 end
 
 
-authority_names = ['ROLE_USER', 'ROLE_ADMIN']
+authority_names = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN', 'ROLE_DEVELOPER', 'ROLE_TESTER', 'ROLE_DEVOPS']
 
 authority_names.each do |name|
   Authority.create!(name: name)
