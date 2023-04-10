@@ -5,4 +5,8 @@ class Organisation < ApplicationRecord
   def user_count
     users.count
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name code address email created_at updated_at]
+  end
 end
