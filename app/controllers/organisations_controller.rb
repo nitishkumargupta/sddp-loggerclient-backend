@@ -3,13 +3,15 @@ class OrganisationsController < ApplicationController
   include PaginationAndSorting
   before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION']) }, only: [:update]
 
-  # app/controllers/organisations_controller.rb
+  # @example  GET /api/organizations?q[name_cont]=name&q[code_lt]=10
   def index
     check_role_permissions(['ROLE_ADMIN'])
-    query = params[:query]
-    organisations = apply_pagination_and_sorting(Organisation, query)
-    render json: organisations, methods: :user_count, status: :ok
+    q = params[:q]
+    organizations = Organisation.ransack(q).result
+    organizations = apply_pagination_and_sorting(organizations, query)
+    render json: organizations, methods: :user_count, status: :ok
   end
+
 
   def show
     check_role_permissions(['ROLE_ORGANIZATION', 'ROLE_ADMIN'])
