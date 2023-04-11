@@ -1,23 +1,30 @@
 class OrganisationsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
-  before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN']) }, only: [:update]
   before_action :set_organisation, only: [:show, :update]
 
-  # @example  GET /api/organizations?q[name_cont]=name&q[code_lt]=10
   def index
-    check_role_permissions(['ROLE_ADMIN'])
+    check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN])
     query = params[:query]
     q = params[:q]
-    organizations = Organisation.ransack(q).result
-    organizations = apply_pagination_and_sorting(organizations, query)
-    render json: organizations, methods: :user_count, status: :ok
+
+    if current_user_has_role?('ROLE_ADMIN')
+      @organisations = Organisation.ransack(q).result
+    elsif current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
+      @organisations = Organisation.where(id: current_user.organisation_id)
+    end
+
+    @organisations = apply_pagination_and_sorting(@organisations, query)
+
+    add_total_count_header do
+      render json: @organisations, methods: :user_count, status: :ok
+    end
   end
+
 
 
   def show
     check_role_permissions(%w[ROLE_ORGANIZATION_ADMIN ROLE_ADMIN])
-
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
       render json: @organisation.to_json
     elsif current_user_has_role?('ROLE_ADMIN')
@@ -32,12 +39,11 @@ class OrganisationsController < ApplicationController
 
   def create
     check_role_permissions(['ROLE_ADMIN'])
-
     organisation = Organisation.new(organisation_params)
-    # Everytime we need to create a default user, keeping entry in organisation table only will not allow user to login
     if params[:users].present?
       OrganisationUserCreator.new(organisation, params[:users]).create_admin_user
     end
+
     if organisation.save
       render json: organisation.to_json, status: 200
     else
@@ -47,7 +53,7 @@ class OrganisationsController < ApplicationController
 
   def update
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-      if @organisation.update(update_params)
+      if @organisation.update(organisation_update_params)
         if params[:users].present? && params[:users]["password"].present?
           OrganisationUserCreator.new(@organisation, params[:users], current_user).update_password
         end
@@ -65,10 +71,8 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  # DELETE /organisations/1
   def destroy
     check_role_permissions(['ROLE_ADMIN'])
-
     organisation = Organisation.find_by(id: params[:id])
     if organisation&.destroy
       render json: { message: "Organisation deleted" }, status: :ok
@@ -84,10 +88,6 @@ class OrganisationsController < ApplicationController
 
   def organisation_params
     params.require(:organisation).permit(:name, :address, :code, :email, user_attributes: [:password])
-  end
-
-  def update_params
-    params.require(:organisation).permit(:name, :address, user_attributes: [:password])
   end
 
   def organisation_update_params

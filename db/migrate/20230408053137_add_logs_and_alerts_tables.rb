@@ -25,6 +25,7 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
       t.string "response_headers", null: false
       t.string "request_url_parameters"
       t.string "request_body"
+      t.string "response_body"
       t.string "request_cookies"
       t.string "response_cookies"
       t.bigint "application_id", null: false
