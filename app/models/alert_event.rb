@@ -5,4 +5,9 @@ class AlertEvent < ApplicationRecord
   validates :code, presence: true
   validates :application_code, presence: true
   validates :is_sent, inclusion: { in: [true, false] }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id code application_code is_sent alert_subscriber_id]
+  end
+
 end

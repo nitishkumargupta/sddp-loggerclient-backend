@@ -15,4 +15,8 @@ class HttpLog < ApplicationRecord
   def as_json(options={})
     super(options.merge(include: { application: { only: [:id, :name, :code] } }))
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id application_id duration http_method http_status_code id remote_ip_address request_body request_cookies request_headers request_timestamp request_url request_url_parameters response_body response_cookies response_headers]
+  end
 end

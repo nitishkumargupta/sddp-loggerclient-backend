@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
     # Add admin routes
     namespace :admin do
-      resources :users, param: :email, only: [:index, :show, :create, :update, :destroy]
+      resources :users, only: [:index, :show, :create, :update, :destroy]
     end
 
     resources :organizations, only: %w(index show create update destroy), controller: 'organisations'

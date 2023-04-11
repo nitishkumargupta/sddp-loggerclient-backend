@@ -1,6 +1,7 @@
 class OrganisationsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
+  include ResponseHeaders
   before_action :set_organisation, only: [:show, :update]
 
   def index
@@ -17,12 +18,9 @@ class OrganisationsController < ApplicationController
     @organisations = apply_pagination_and_sorting(@organisations, query)
 
     add_total_count_header do
-      render json: @organisations, methods: :user_count, status: :ok
+      render json: @organisations, methods: [:user_count, :applications_count], status: :ok
     end
   end
-
-
-
   def show
     check_role_permissions(%w[ROLE_ORGANIZATION_ADMIN ROLE_ADMIN])
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
