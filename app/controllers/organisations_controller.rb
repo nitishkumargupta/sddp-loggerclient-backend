@@ -1,7 +1,7 @@
 class OrganisationsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
-  before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN']) }, only: [:update]
+  before_action -> { check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN]) }, only: [:update]
 
   # @example  GET /api/organizations?q[name_cont]=name&q[code_lt]=10
   def index
@@ -15,7 +15,7 @@ class OrganisationsController < ApplicationController
 
 
   def show
-    check_role_permissions(['ROLE_ORGANIZATION_ADMIN', 'ROLE_ADMIN'])
+    check_role_permissions(%w[ROLE_ORGANIZATION_ADMIN ROLE_ADMIN])
 
     if current_user_has_role?('ROLE_ORGANIZATION')
       render json: @organisation.to_json

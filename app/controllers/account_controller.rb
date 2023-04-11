@@ -11,7 +11,8 @@ class AccountController < ApplicationController
   def register
     email = params[:email]
     password = params[:password]
-    organisation_id = params[:organisation_id]
+    org_name = params[:orgName]
+    org_address = params[:orgAddress]
 
     # Check if the email is already in use
     if User.exists?(email: email)
@@ -19,20 +20,18 @@ class AccountController < ApplicationController
       return
     end
 
-    organisation = Organisation.find_by(id: organisation_id)
-
-    # Check if the organisation exists
-    unless organisation
-      render json: { error: 'Organisation not found' }, status: :not_found
-      return
-    end
+    # Create the new organisation or find an existing one
+    organisation = Organisation.find_or_create_by(name: org_name, address: org_address)
 
     # Create the new user
-    user = User.new(email: email, password: password, organisation: organisation)
+    user = User.new(email: email, password: password, first_name: organisation.name, organisation: organisation)
 
     # Assign the default authority to the user
     role_user = Authority.find_by(name: 'ROLE_USER')
     user.authorities << role_user if role_user
+
+    role_org_admin = Authority.find_by(name: 'ROLE_ORGANIZATION_ADMIN')
+    user.authorities << role_org_admin if role_org_admin
 
     if user.save
       render json: { message: 'User registration successful' }, status: :created

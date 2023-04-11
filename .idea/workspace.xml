@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="add ransack for params filtering">
+    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="ROLE_ORGANIZATION_ADMIN">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/account_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/account_controller.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/organisations_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/organisations_controller.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -251,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681105116947</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="ROLE_ORGANIZATION_ADMIN">
+      <created>1681174813752</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1681174813752</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,9 +289,10 @@
     <MESSAGE value="Roles" />
     <MESSAGE value="kafka consumer using rdkafka" />
     <MESSAGE value="add ransack for params filtering" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ransack for params filtering" />
+    <MESSAGE value="ROLE_ORGANIZATION_ADMIN" />
+    <option name="LAST_COMMIT_MESSAGE" value="ROLE_ORGANIZATION_ADMIN" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681105083485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
+    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681186236525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
   </component>
 </project>
