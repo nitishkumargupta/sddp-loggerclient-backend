@@ -22,6 +22,12 @@ Rails.application.routes.draw do
     end
 
     resources :organizations, only: %w(index show create update destroy), controller: 'organisations'
+    get "/alert-subscribers", to: "alert_subscribers#index"
+    post "/alert-subscribers", to: "alert_subscribers#create"
+    get "/alert-subscribers/:id", to: "alert_subscribers#show"
+    patch "/alert-subscribers/:id", to: "alert_subscribers#update"
+    put "/alert-subscribers/:id", to: "alert_subscribers#update"
+    delete "/alert-subscribers/:id", to: "alert_subscribers#destroy"
   end
 
   devise_for :users,

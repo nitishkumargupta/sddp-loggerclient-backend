@@ -1,6 +1,6 @@
 # app/controllers/account_controller.rb
 class AccountController < ApplicationController
-  # skip_before_action :authenticate_user!, only: [:register, ]
+  skip_before_action :set_current_user, only: [:register]
 
   # Just for Testing
   # Just for Testing

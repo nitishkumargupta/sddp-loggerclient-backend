@@ -1,7 +1,8 @@
 class OrganisationsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
-  before_action -> { check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN]) }, only: [:update]
+  before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN']) }, only: [:update]
+  before_action :set_organisation, only: [:show, :update]
 
   # @example  GET /api/organizations?q[name_cont]=name&q[code_lt]=10
   def index
@@ -17,7 +18,7 @@ class OrganisationsController < ApplicationController
   def show
     check_role_permissions(%w[ROLE_ORGANIZATION_ADMIN ROLE_ADMIN])
 
-    if current_user_has_role?('ROLE_ORGANIZATION')
+    if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
       render json: @organisation.to_json
     elsif current_user_has_role?('ROLE_ADMIN')
       organisation = Organisation.find_by(id: params[:id])
@@ -33,6 +34,7 @@ class OrganisationsController < ApplicationController
     check_role_permissions(['ROLE_ADMIN'])
 
     organisation = Organisation.new(organisation_params)
+    # Everytime we need to create a default user, keeping entry in organisation table only will not allow user to login
     if params[:users].present?
       OrganisationUserCreator.new(organisation, params[:users]).create_admin_user
     end
@@ -46,7 +48,7 @@ class OrganisationsController < ApplicationController
   def update
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
       if @organisation.update(update_params)
-        if params[:users]["password"].present?
+        if params[:users].present? && params[:users]["password"].present?
           OrganisationUserCreator.new(@organisation, params[:users], current_user).update_password
         end
         render json: @organisation.to_json
@@ -89,6 +91,6 @@ class OrganisationsController < ApplicationController
   end
 
   def organisation_update_params
-    params.require(:organisation).permit(:name, :code, :address, :email)
+    params.require(:organisation).permit(:name, :address, :email)
   end
 end

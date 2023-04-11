@@ -17,7 +17,7 @@ gem "mysql2"
 gem "figaro"
 
 gem "rswag"
-# gem "application_server_management", path: '/Users/nitish/SHU/System Design/application_server_management'
+# gem "application_server_management", path: '/Users/nitish/shu/application_server_management'
 gem "application_server_management", github: 'nitishkumargupta/application_server_management', branch: 'main'
 
 # Use the Puma web server [https://github.com/puma/puma]

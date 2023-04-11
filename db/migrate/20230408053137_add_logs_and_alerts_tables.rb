@@ -11,6 +11,7 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
     create_table "alert_subscribers", charset: "utf8", force: :cascade do |t|
       t.string "name", null: false
       t.string "email", null: false
+      t.string "organisation_id", null: false
     end
 
     create_table "http_logs", charset: "utf8", force: :cascade do |t|
@@ -29,17 +30,14 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
       t.bigint "application_id", null: false
       t.index ["application_id"], name: "fk_http_log__application_id"
     end
-
-    create_table "rel_alert_subscriber__applications", charset: "utf8", force: :cascade do |t|
-      t.bigint "application_id", null: false
+    
+    create_table "subscriptions", charset: "utf8", force: :cascade do |t|
       t.bigint "alert_subscriber_id", null: false
-      t.index ["application_id"], name: "fk_rel_alert_subscriber__application__application_id"
-      t.index ["alert_subscriber_id", "application_id"], name: "fk_rel_alert_subscriber__application__alert_subscriber_id", unique: true
+      t.string "application_id", null: false
+      t.timestamps
     end
 
     add_foreign_key "alert_events", "alert_subscribers", column: "alert_subscriber_id"
     add_foreign_key "http_logs", "application_server_management_application_servers", column: "application_id", primary_key: "id"
-    add_foreign_key "rel_alert_subscriber__applications", "alert_subscribers", column: "alert_subscriber_id"
-    add_foreign_key "rel_alert_subscriber__applications", "application_server_management_application_servers", column: "application_id", primary_key: "id"
   end
 end

@@ -1,6 +1,7 @@
 class Organisation < ApplicationRecord
   has_many :application_servers, class_name: "ApplicationServerManagement::ApplicationServer"
   has_many :users
+  has_many :alert_subscribers
 
   def user_count
     users.count
