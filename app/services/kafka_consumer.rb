@@ -5,8 +5,8 @@ class KafkaConsumer
     @topic = topic
     @config = {
       'bootstrap.servers': 'localhost:9092', # Replace with your Kafka broker addresses
-      'group.id': 'rails-kafka-consumer',
-      'auto.offset.reset': 'earliest'
+      'group.id': 'kafka-consumer',
+      'auto.offset.reset': 'latest'
     }
   end
 
@@ -19,9 +19,26 @@ class KafkaConsumer
     consumer.each do |message|
       if message
         puts "Received message: #{message.payload} at offset #{message.offset}"
-        # Process the message here, e.g., save it to the database or perform other actions
+        begin
+          save_http_log(message.payload)
+        rescue => e
+          puts "Error processing message: #{e.message}"
+        end
       end
     end
   end
 
+
+  private
+
+  def save_http_log(payload)
+    parsed_payload = JSON.parse(payload)
+    http_log = HttpLog.new(parsed_payload)
+
+    if http_log.save
+      puts "HttpLog saved with ID: #{http_log.id}"
+    else
+      puts "Failed to save HttpLog: #{http_log.errors.full_messages.join(', ')}"
+    end
+  end
 end
