@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
 
     resources :organizations, only: %w(index show create update destroy), controller: 'organisations'
+    resources :'http-logs', only: %w(index show create update destroy), controller: 'http_logs', as: 'http_logs'
+
     get "/alert-subscribers", to: "alert_subscribers#index"
     post "/alert-subscribers", to: "alert_subscribers#create"
     get "/alert-subscribers/:id", to: "alert_subscribers#show"

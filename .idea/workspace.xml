@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="password reset">
+    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="fix paging issues and add response body field to DB">
+      <change afterPath="$PROJECT_DIR$/app/controllers/concerns/response_headers.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/http_logs_controller.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/enumerations/http_method.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/enumerations/http_status_code.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/concerns/pagination_and_sorting.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/concerns/pagination_and_sorting.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/organisations_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/organisations_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/migrate/20230408053137_add_logs_and_alerts_tables.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/migrate/20230408053137_add_logs_and_alerts_tables.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/http_log.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/http_log.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +284,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681189168752</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fix paging issues and add response body field to DB">
+      <created>1681222386371</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1681222386371</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,9 +325,10 @@
     <MESSAGE value="organization registration" />
     <MESSAGE value="change password" />
     <MESSAGE value="password reset" />
-    <option name="LAST_COMMIT_MESSAGE" value="password reset" />
+    <MESSAGE value="fix paging issues and add response body field to DB" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix paging issues and add response body field to DB" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681222301666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
+    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681232862978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
   </component>
 </project>

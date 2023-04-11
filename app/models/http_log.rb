@@ -2,6 +2,7 @@
 class HttpLog < ApplicationRecord
   belongs_to :application, class_name: 'ApplicationServerManagement::ApplicationServer', foreign_key: 'application_id'
 
+  validates :application, presence: true
   validates :request_timestamp, presence: true
   validates :http_method, presence: true
   validates :request_url, presence: true
@@ -10,4 +11,8 @@ class HttpLog < ApplicationRecord
   validates :duration, presence: true
   validates :request_headers, presence: true
   validates :response_headers, presence: true
+
+  def as_json(options={})
+    super(options.merge(include: { application: { only: [:id, :name, :code] } }))
+  end
 end
