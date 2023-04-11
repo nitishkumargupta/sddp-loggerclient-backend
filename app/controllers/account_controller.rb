@@ -88,11 +88,38 @@ class AccountController < ApplicationController
 
 
   def request_password_reset
-    # Your logic to initiate the password reset process
+    user = User.find_by(email: params[:email])
+
+    if user
+      user.send_reset_password_instructions
+      UserMailer.send_password_reset_mail(user).deliver_now
+    else
+      Rails.logger.warn("Password reset requested for non-existing email")
+    end
+
+    head :ok
   end
 
   def finish_password_reset
-    # Your logic to complete the password reset process
+    key_and_password = params.permit(:reset_password_token, :new_password)
+
+    unless key_and_password[:new_password].length.between?(8, 128)
+      render json: { error: 'Invalid password length' }, status: :bad_request
+      return
+    end
+
+    user = User.with_reset_password_token(key_and_password[:reset_password_token])
+
+    if user
+      user.password = key_and_password[:new_password]
+      if user.save
+        head :ok
+      else
+        render json: { error: 'Error updating password' }, status: :internal_server_error
+      end
+    else
+      render json: { error: 'No user was found for this reset key' }, status: :unprocessable_entity
+    end
   end
 
   def change_password

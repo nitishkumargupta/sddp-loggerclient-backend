@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="organization registration">
+    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="change password">
+      <change afterPath="$PROJECT_DIR$/app/mailers/user_mailer.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/devise/mailer/reset_password_instructions.html.erb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/user_mailer/send_password_reset_mail.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sddp-loggerclient-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sddp-loggerclient-backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/account_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/account_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/environments/development.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/development.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681186383628</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="change password">
+      <created>1681187587649</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1681187587649</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,9 +312,10 @@
     <MESSAGE value="add ransack for params filtering" />
     <MESSAGE value="ROLE_ORGANIZATION_ADMIN" />
     <MESSAGE value="organization registration" />
-    <option name="LAST_COMMIT_MESSAGE" value="organization registration" />
+    <MESSAGE value="change password" />
+    <option name="LAST_COMMIT_MESSAGE" value="change password" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681187279276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
+    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681188983565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
   </component>
 </project>

@@ -63,6 +63,8 @@
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.6.3, RVM: ruby-3.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json-schema (v3.0.0, RVM: ruby-3.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jwt (v2.7.0, RVM: ruby-3.2.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="launchy (v2.5.2, RVM: ruby-3.2.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="letter_opener (v1.8.1, RVM: ruby-3.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.19.1, RVM: ruby-3.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.8.1, RVM: ruby-3.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="marcel (v1.0.2, RVM: ruby-3.2.1) [gem]" level="application" />
@@ -447,6 +449,7 @@
           <RakeTaskImpl description="Run all specs in spec directory (excluding plugin specs)" fullCommand="spec" id="spec" />
           <RakeTaskImpl id="spec">
             <subtasks>
+              <RakeTaskImpl description="Run the code examples in spec/mailers" fullCommand="spec:mailers" id="mailers" />
               <RakeTaskImpl description="Run the code examples in spec/models" fullCommand="spec:models" id="models" />
               <RakeTaskImpl description="Run the code examples in spec/requests" fullCommand="spec:requests" id="requests" />
               <RakeTaskImpl description="Run the code examples in spec/routing" fullCommand="spec:routing" id="routing" />
@@ -498,6 +501,7 @@
                   <RakeTaskImpl description="" fullCommand="tmp:cache:clear" id="clear" />
                 </subtasks>
               </RakeTaskImpl>
+              <RakeTaskImpl description="" fullCommand="tmp:letter_opener" id="letter_opener" />
               <RakeTaskImpl id="pids">
                 <subtasks>
                   <RakeTaskImpl description="" fullCommand="tmp:pids:clear" id="clear" />
