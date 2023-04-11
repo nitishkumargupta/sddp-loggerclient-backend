@@ -96,8 +96,22 @@ class AccountController < ApplicationController
   end
 
   def change_password
-    # Your logic to change the password for the authenticated user
+    user = current_user
+
+    unless user&.valid_password?(params[:current_password])
+      render json: { error: 'Invalid current password' }, status: :unprocessable_entity
+      return
+    end
+
+    user.password = params[:new_password]
+
+    if user.save
+      render json: { message: 'Password changed successfully' }, status: :ok
+    else
+      render json: { error: user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
+
 
 
 end
