@@ -12,7 +12,7 @@ class HttpLog < ApplicationRecord
   validates :request_headers, presence: true
   validates :response_headers, presence: true
 
-  def as_json(options={})
+  def as_json(options = {})
     super(options.merge(include: { application: { only: [:id, :name, :code] } }))
   end
 

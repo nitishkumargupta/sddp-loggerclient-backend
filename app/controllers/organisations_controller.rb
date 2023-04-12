@@ -21,6 +21,7 @@ class OrganisationsController < ApplicationController
       render json: @organisations, methods: [:user_count, :applications_count], status: :ok
     end
   end
+
   def show
     check_role_permissions(%w[ROLE_ORGANIZATION_ADMIN ROLE_ADMIN])
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
@@ -80,6 +81,7 @@ class OrganisationsController < ApplicationController
   end
 
   private
+
   def set_organisation
     @organisation = @current_user.organisation
   end

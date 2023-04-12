@@ -25,7 +25,6 @@ class ApplicationController < ActionController::API
 
 end
 
-
 # removed for testing
 
 # class ApplicationController < ActionController::API

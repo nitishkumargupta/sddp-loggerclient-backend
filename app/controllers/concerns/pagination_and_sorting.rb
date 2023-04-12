@@ -60,7 +60,4 @@ module PaginationAndSorting
     end
   end
 
-
-
-
 end

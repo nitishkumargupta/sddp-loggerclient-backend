@@ -31,7 +31,6 @@ class HttpLogsController < ApplicationController
     end
   end
 
-
   def create
     current_user_has_role?('ROLE_ADMIN')
     @http_log = HttpLog.new(http_log_params)
@@ -41,6 +40,7 @@ class HttpLogsController < ApplicationController
       render json: @http_log.errors, status: :unprocessable_entity
     end
   end
+
   def update
     current_user_has_role?('ROLE_ADMIN')
     if @http_log.update(http_log_params)
@@ -50,7 +50,6 @@ class HttpLogsController < ApplicationController
     end
   end
 
-
   def destroy
     current_user_has_role?('ROLE_ADMIN')
     @http_log.destroy
@@ -58,6 +57,7 @@ class HttpLogsController < ApplicationController
   end
 
   private
+
   def set_http_log
     @http_log = HttpLog.find(params[:id])
   end

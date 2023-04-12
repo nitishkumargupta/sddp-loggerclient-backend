@@ -10,7 +10,6 @@ class KafkaConsumer
     }
   end
 
-
   def run
     consumer = Rdkafka::Config.new(@config).consumer
     consumer.subscribe(@topic)
@@ -28,7 +27,6 @@ class KafkaConsumer
       end
     end
   end
-
 
   private
 

@@ -17,16 +17,16 @@ RSpec.describe 'users/registrations', type: :request do
           }
         },
         required: true,
-        example: {user: {email: "test@example.com", password: "12345678"}}
+        example: { user: { email: "test@example.com", password: "12345678" } }
       }
       response(200, 'successful') do
         produces 'application/json'
-        schema type: :object, 
-        properties: {
-          message: { type: :string }
-        },
-        example: {message: "Signed up sucessfully."}
-      
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
+               },
+               example: { message: "Signed up sucessfully." }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -39,11 +39,11 @@ RSpec.describe 'users/registrations', type: :request do
 
       response(422, 'not a valid request') do
         produces 'application/json'
-        schema type: :object, 
-        properties: {
-          message: { type: :string }
-        },
-        example: {message: "Required fields are missing"}
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
+               },
+               example: { message: "Required fields are missing" }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -56,11 +56,11 @@ RSpec.describe 'users/registrations', type: :request do
 
       response(409, 'user exists') do
         produces 'application/json'
-        schema type: :object, 
-        properties: {
-          message: { type: :string }
-        },
-        example: {message: "User already exists. Please try with another email"}
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
+               },
+               example: { message: "User already exists. Please try with another email" }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {

@@ -31,7 +31,7 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
       t.bigint "application_id", null: false
       t.index ["application_id"], name: "fk_http_log__application_id"
     end
-    
+
     create_table "subscriptions", charset: "utf8", force: :cascade do |t|
       t.bigint "alert_subscriber_id", null: false
       t.string "application_id", null: false

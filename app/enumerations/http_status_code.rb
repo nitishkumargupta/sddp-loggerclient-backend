@@ -67,7 +67,7 @@ module HttpStatusCode
   BANDWIDTH_LIMIT_EXCEEDED = 509
   NOT_EXTENDED = 510
   NETWORK_AUTHENTICATION_REQUIRED = 511
-  
+
   def self.all
     constants.map(&method(:const_get))
   end

@@ -18,6 +18,7 @@ class User < ApplicationRecord
     json['authorities'] = authorities.pluck(:name)
     json
   end
+
   def self.ransackable_attributes(auth_object = nil)
     %w[id email encrypted_password reset_password_token reset_password_sent_at remember_created_at
     created_at updated_at first_name last_name organisation_id]

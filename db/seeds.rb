@@ -6,8 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-
-
 names = ['Server 1', 'Server 2', 'Server 3', 'Server 4', 'Server 5', 'Server 6', 'Server 7', 'Server 8', 'Server 9', 'Server 10']
 codes = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'S10']
 
@@ -18,7 +16,6 @@ names.each_with_index do |name, index|
     description: "Description for #{name}"
   )
 end
-
 
 authority_names = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN', 'ROLE_DEVELOPER', 'ROLE_TESTER', 'ROLE_DEVOPS']
 
@@ -69,9 +66,9 @@ organisations_data = [
 
 50.times do |n|
   org_data = organisations_data[n % organisations_data.length].dup
-  org_data[:name] = "#{org_data[:name]} #{n+1}"
-  org_data[:code] = "#{org_data[:code]} #{n+1}"
-  org_data[:email] = "#{n+1} #{org_data[:email]}"
+  org_data[:name] = "#{org_data[:name]} #{n + 1}"
+  org_data[:code] = "#{org_data[:code]} #{n + 1}"
+  org_data[:email] = "#{n + 1} #{org_data[:email]}"
   Organisation.create!(org_data)
 end
 

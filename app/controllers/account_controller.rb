@@ -6,7 +6,6 @@ class AccountController < ApplicationController
   # Just for Testing
   # Just for Testing
 
-
   # app/controllers/account_controller.rb
   def register
     email = params[:email]
@@ -40,7 +39,6 @@ class AccountController < ApplicationController
     end
   end
 
-
   def get_account
     if @current_user
       user_data = @current_user.as_json(
@@ -61,7 +59,6 @@ class AccountController < ApplicationController
     end
   end
 
-
   def save_account
     user_login = current_user.email # Assuming `current_user` returns the authenticated user
     raise 'Current user login not found' if user_login.nil?
@@ -81,11 +78,10 @@ class AccountController < ApplicationController
     user.update!(
       first_name: params[:first_name],
       last_name: params[:last_name],
-      )
+    )
 
     head :ok
   end
-
 
   def request_password_reset
     user = User.find_by(email: params[:email])
@@ -138,8 +134,6 @@ class AccountController < ApplicationController
       render json: { error: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
-
 
 end
 

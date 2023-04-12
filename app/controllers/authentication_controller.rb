@@ -1,9 +1,8 @@
-
 require 'jwt'
 
 class AuthenticationController < ApplicationController
   skip_before_action :set_current_user
-  
+
   def authenticate
     user = User.find_for_database_authentication(email: params[:email])
     if user&.valid_password?(params[:password])

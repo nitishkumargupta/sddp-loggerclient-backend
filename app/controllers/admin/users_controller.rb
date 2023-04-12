@@ -41,7 +41,6 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-
   def update
     current_user_has_role?('ROLE_ADMIN')
 
@@ -65,7 +64,6 @@ class Admin::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :organisation_id, authorities: [])

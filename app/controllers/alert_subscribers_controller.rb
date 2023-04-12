@@ -57,6 +57,7 @@ class AlertSubscribersController < ApplicationController
   end
 
   private
+
   def set_subscriber
     subscribers = @current_user.organisation.alert_subscribers
     @subscriber = subscribers.find_by(params[:id])
