@@ -31,10 +31,10 @@ module PaginationAndSorting
 
     if query.present?
       # Use Elasticsearch for searching when a query is provided
-      scope.search(query, pageable.merge(sort))
+      scope&.search(query, pageable.merge(sort))
     else
       # Use ActiveRecord for regular listing without searching
-      scope.order("#{sort[:sort_column]} #{sort[:sort_direction]}").paginate(page: pageable[:page], per_page: pageable[:per_page])
+      scope&.order("#{sort[:sort_column]} #{sort[:sort_direction]}")&.paginate(page: pageable[:page], per_page: pageable[:per_page])
     end
   end
 

@@ -30,6 +30,12 @@ Rails.application.routes.draw do
     patch "/alert-subscribers/:id", to: "alert_subscribers#update"
     put "/alert-subscribers/:id", to: "alert_subscribers#update"
     delete "/alert-subscribers/:id", to: "alert_subscribers#destroy"
+    get "/alert-events", to: "alert_events#index"
+    post "/alert-events", to: "alert_events#create"
+    get "/alert-events/:id", to: "alert_events#show"
+    patch "/alert-events/:id", to: "alert_events#update"
+    put "/alert-events/:id", to: "alert_events#update"
+    delete "/alert-events/:id", to: "alert_events#destroy"
   end
 
   devise_for :users,
