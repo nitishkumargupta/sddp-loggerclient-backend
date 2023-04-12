@@ -1,6 +1,7 @@
 class AlertSubscribersController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
+  include ResponseHeaders
   before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN']) }, only: [:update]
   before_action :set_subscriber, only: [:edit, :show, :destroy]
 

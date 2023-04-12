@@ -1,6 +1,7 @@
 class AlertEventsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
+  include ResponseHeaders
   before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN']) }, only: [:update]
   before_action :set_alert_events, except: [:create]
   before_action :set_alert_event, except: [:create, :index]
@@ -11,25 +12,18 @@ class AlertEventsController < ApplicationController
     q = params[:q]
     alert_events = @alert_events&.ransack(q)&.result
     alert_events = apply_pagination_and_sorting(alert_events, query)
-    alert_events = alert_events.map do |alert_event|
-      event = {}
-      alert_event.attributes.map{|key,value| event[key.camelcase(:lower)] = value}
-      event
-    end
     render json: alert_events, status: :ok
   end
 
   def show
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-      render json: @alert_event.to_json.camelcase(:lower)
+      render json: @alert_event.to_json
     end
   end
 
   def create
     check_role_permissions(['ROLE_ORGANIZATION_ADMIN'])
     event = AlertEvent.new(event_params)
-    event.application_code = params[:applicationCode]
-    event.is_sent = params[:isSent]
     event.alert_subscriber_id = params[:alertSubscriber][:id]
     if event.save
       render json: event.to_json, status: 200
@@ -40,8 +34,6 @@ class AlertEventsController < ApplicationController
 
   def update
     if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-      @alert_event.application_code = params[:applicationCode]
-      @alert_event.is_sent = params[:isSent]
       @alert_event.alert_subscriber_id = params[:alertSubscriber][:id]
       if @alert_event.update(event_params)
         render json: @alert_event.to_json
@@ -72,6 +64,6 @@ class AlertEventsController < ApplicationController
   end
 
   def event_params
-    params.require(:alert_event).permit(:code, :application_code, :is_sent, applications_attributes: [:id])
+    params.require(:alert_event).permit(:code, :is_sent, :application_code)
   end
 end

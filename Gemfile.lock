@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:nitishkumargupta/application_server_management.git
-  revision: 235affed9cd84014855ff47d434c3e44001f9eb6
+  revision: 0d9a5425a7068fc2875536d590a77e1cadc332ec
   branch: main
   specs:
     application_server_management (0.1.0)

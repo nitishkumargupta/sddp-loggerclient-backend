@@ -7,4 +7,12 @@ class AlertSubscriber < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name email created_at updated_at organisation_id]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["alert_events", "application_servers", "organisation", "subscriptions"]
+  end
 end
