@@ -10,6 +10,7 @@ class KafkaConsumer
     }
   end
 
+
   def run
     consumer = Rdkafka::Config.new(@config).consumer
     consumer.subscribe(@topic)
@@ -31,9 +32,12 @@ class KafkaConsumer
 
   private
 
+  # TODO: Find another method as this one makes delays when there is an insert error
   def save_http_log(payload)
     parsed_payload = JSON.parse(payload)
     http_log = HttpLog.new(parsed_payload)
+
+    # TODO: Find application by token not id to save it with the log
 
     if http_log.save
       puts "HttpLog saved with ID: #{http_log.id}"

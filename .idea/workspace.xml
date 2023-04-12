@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="http logs, users ui">
+    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="delete user with authorities">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/user.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/kafka_consumer.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/kafka_consumer.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681256954712</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="delete user with authorities">
+      <created>1681258822911</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1681258822911</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +371,8 @@
     <MESSAGE value="fix paging issues and add response body field to DB" />
     <MESSAGE value="alerting headers for front end" />
     <MESSAGE value="http logs, users ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="http logs, users ui" />
+    <MESSAGE value="delete user with authorities" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete user with authorities" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1681258757983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
