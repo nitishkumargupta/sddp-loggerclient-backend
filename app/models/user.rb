@@ -9,7 +9,7 @@ class User < ApplicationRecord
          :recoverable,
          jwt_revocation_strategy: JwtDenylist
 
-  has_many :user_authorities
+  has_many :user_authorities, dependent: :destroy
   has_many :authorities, through: :user_authorities
   belongs_to :organisation, optional: true
 
