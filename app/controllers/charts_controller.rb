@@ -1,15 +1,25 @@
 class ChartsController < ApplicationController
+  include RoleCheck
 
+  # TODO :: make it not public
+  #
   # Returns the total number of HttpLogs in the last 24 hours, 7 days, and 30 days and all
   def http_logs_by_timeframe
     now = Time.now
+    logs_scope = HttpLog.all
+
+    if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
+      logs_scope = logs_scope.joins(:application).where(applications: { organisation_id: @current_user.organisation_id })
+    end
+
     render json: {
-      total: HttpLog.count,
-      last_24_hours: HttpLog.where("request_timestamp >= ?", now - 24.hours).count,
-      last_7_days: HttpLog.where("request_timestamp >= ?", now - 7.days).count,
-      last_30_days: HttpLog.where("request_timestamp >= ?", now - 30.days).count
+      total: logs_scope.count,
+      last_24_hours: logs_scope.where("request_timestamp >= ?", now - 24.hours).count,
+      last_7_days: logs_scope.where("request_timestamp >= ?", now - 7.days).count,
+      last_30_days: logs_scope.where("request_timestamp >= ?", now - 30.days).count
     }
   end
+
 
   # Returns the distribution of HttpLogs by HttpMethod (GET, POST, PUT, DELETE, HEAD, OPTIONS, CONNECT, TRACE, PATCH)
   def http_logs_by_method
