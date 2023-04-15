@@ -25,7 +25,7 @@ class ChartsController < ApplicationController
 
   # Returns the number of HttpLogs for each organization as a bar chart
   def http_logs_by_organization
-    org_counts = HttpLog.joins(application: :organisation).group("organisations.name").count
+    org_counts = HttpLog.joins(application: :organization).group("organizations.name").count
     render json: org_counts
   end
 
@@ -34,4 +34,28 @@ class ChartsController < ApplicationController
     status_code_counts = HttpLog.group("FLOOR(http_status_code / 100)").count
     render json: status_code_counts
   end
+
+  # Returns the number of AlertEvents sent over time as a line chart
+  def alert_events_over_time
+    event_counts = AlertEvent.group_by_day(:created_at).count
+    render json: event_counts
+  end
+
+  # Returns the distribution of AlertEvents by Application as a pie chart
+  def alert_events_by_application
+    app_counts = AlertEvent.group("application_code").count
+    render json: app_counts
+  end
+
+  # Returns the top N slowest requests with HttpMethod, request URL, duration, and timestamp
+  def top_ten_slowest_requests
+    slowest_requests = HttpLog
+                         .select("http_method, request_url, duration, request_timestamp, application_id")
+                         .order(duration: :desc)
+                         .limit(10)
+
+    render json: slowest_requests
+  end
+
+
 end

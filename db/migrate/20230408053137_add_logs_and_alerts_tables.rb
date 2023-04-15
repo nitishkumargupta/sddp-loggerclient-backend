@@ -5,6 +5,7 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
       t.string "application_code"
       t.boolean "is_sent"
       t.bigint "alert_subscriber_id", null: false
+      t.timestamps
       t.index ["alert_subscriber_id"], name: "fk_alert_event__alert_subscriber_id"
     end
 
@@ -12,6 +13,7 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
       t.string "name", null: false
       t.string "email", null: false
       t.string "organisation_id", null: false
+      t.timestamps
     end
 
     create_table "http_logs", charset: "utf8", force: :cascade do |t|
@@ -29,6 +31,7 @@ class AddLogsAndAlertsTables < ActiveRecord::Migration[7.0]
       t.text "request_cookies"
       t.text "response_cookies"
       t.bigint "application_id", null: false
+      t.timestamps
       t.index ["application_id"], name: "fk_http_log__application_id"
     end
 

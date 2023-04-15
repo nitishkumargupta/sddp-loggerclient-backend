@@ -29,6 +29,10 @@ Rails.application.routes.draw do
     get 'charts/http_logs_by_application', to: 'charts#http_logs_by_application'
     get 'charts/http_logs_by_organization', to: 'charts#http_logs_by_organization'
     get 'charts/http_logs_by_status_code', to: 'charts#http_logs_by_status_code'
+    get '/charts/alert_events_over_time', to: 'charts#alert_events_over_time'
+    get '/charts/alert_events_by_application', to: 'charts#alert_events_by_application'
+    get '/charts/top_n_slowest_requests', to: 'charts#top_n_slowest_requests'
+
 
     get "/alert-subscribers", to: "alert_subscribers#index"
     post "/alert-subscribers", to: "alert_subscribers#create"

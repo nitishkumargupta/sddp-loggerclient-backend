@@ -15,6 +15,7 @@ gem 'rack-cors'
 # gem "sqlite3", "~> 1.4"
 gem "mysql2"
 gem "figaro"
+gem 'groupdate'
 
 gem "rswag"
 # gem "application_server_management", path: '/Users/nitish/shu/application_server_management'

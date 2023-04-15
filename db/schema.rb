@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
     t.string "application_code"
     t.boolean "is_sent"
     t.bigint "alert_subscriber_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["alert_subscriber_id"], name: "fk_alert_event__alert_subscriber_id"
   end
 
@@ -70,6 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
     t.string "name", null: false
     t.string "email", null: false
     t.string "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "application_server_management_application_servers", charset: "utf8", force: :cascade do |t|
@@ -101,14 +105,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
     t.string "http_status_code", null: false
     t.string "remote_ip_address", null: false
     t.integer "duration", null: false
-    t.string "request_headers", null: false
-    t.string "response_headers", null: false
-    t.string "request_url_parameters"
-    t.string "request_body"
-    t.string "response_body"
-    t.string "request_cookies"
-    t.string "response_cookies"
+    t.text "request_headers", null: false
+    t.text "response_headers", null: false
+    t.text "request_url_parameters"
+    t.text "request_body"
+    t.text "response_body"
+    t.text "request_cookies"
+    t.text "response_cookies"
     t.bigint "application_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["application_id"], name: "fk_http_log__application_id"
   end
 
