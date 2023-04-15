@@ -24,6 +24,12 @@ Rails.application.routes.draw do
     resources :organizations, only: %w(index show create update destroy), controller: 'organisations'
     resources :'http-logs', only: %w(index show create update destroy), controller: 'http_logs', as: 'http_logs'
 
+    get 'charts/http_logs_by_timeframe', to: 'charts#http_logs_by_timeframe'
+    get 'charts/http_logs_by_method', to: 'charts#http_logs_by_method'
+    get 'charts/http_logs_by_application', to: 'charts#http_logs_by_application'
+    get 'charts/http_logs_by_organization', to: 'charts#http_logs_by_organization'
+    get 'charts/http_logs_by_status_code', to: 'charts#http_logs_by_status_code'
+
     get "/alert-subscribers", to: "alert_subscribers#index"
     post "/alert-subscribers", to: "alert_subscribers#create"
     get "/alert-subscribers/:id", to: "alert_subscribers#show"
