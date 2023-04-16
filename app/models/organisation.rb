@@ -3,6 +3,8 @@ class Organisation < ApplicationRecord
   has_many :users
   has_many :alert_subscribers
 
+  alias_attribute :organization_id, :organisation_id
+
   def user_count
     users.count
   end

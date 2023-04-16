@@ -2,12 +2,11 @@ class AlertEventsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
   include ResponseHeaders
-  before_action -> { check_role_permissions(['ROLE_ADMIN', 'ROLE_ORGANIZATION_ADMIN']) }, only: [:update]
+  before_action -> { check_role_permissions(['ROLE_ORGANIZATION_ADMIN']) }
   before_action :set_alert_events, except: [:create]
   before_action :set_alert_event, except: [:create, :index]
 
   def index
-    check_role_permissions(['ROLE_ORGANIZATION_ADMIN'])
     query = params[:query]
     q = params[:q]
     alert_events = @alert_events&.ransack(q)&.result
@@ -16,13 +15,10 @@ class AlertEventsController < ApplicationController
   end
 
   def show
-    if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-      render json: @alert_event.to_json
-    end
+    render json: @alert_event.to_json
   end
 
   def create
-    check_role_permissions(['ROLE_ORGANIZATION_ADMIN'])
     event = AlertEvent.new(event_params)
     event.alert_subscriber_id = params[:alertSubscriber][:id]
     if event.save
@@ -33,18 +29,15 @@ class AlertEventsController < ApplicationController
   end
 
   def update
-    if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
       @alert_event.alert_subscriber_id = params[:alertSubscriber][:id]
       if @alert_event.update(event_params)
         render json: @alert_event.to_json
       else
         render json: @alert_event.errors, status: :unprocessable_entity
       end
-    end
   end
 
   def destroy
-    check_role_permissions(['ROLE_ORGANIZATION_ADMIN'])
     if @alert_event.destroy
       render json: { message: "Alert Event deleted" }, status: :ok
     else

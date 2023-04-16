@@ -5,13 +5,12 @@ class HttpLogsController < ApplicationController
   before_action :set_http_log, only: [:show, :update, :destroy]
 
   def index
-    check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN])
     query = params[:query]
     q = params[:q]
     if current_user_has_role?('ROLE_ADMIN')
       @http_logs = HttpLog.ransack(q).result
-    elsif current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-      @http_logs = @http_logs.joins(:application).where(applications: { organization_id: @current_user.organisation_id })
+    else
+      @http_logs = HttpLog.joins(:application).where(application: { organisation_id: @current_user.organisation_id })
     end
 
     @http_logs = apply_pagination_and_sorting(@http_logs, query)
@@ -24,7 +23,7 @@ class HttpLogsController < ApplicationController
   def show
     if current_user_has_role?('ROLE_ADMIN')
       render json: @http_log
-    elsif current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
+    else
       if @http_log.application.organisation_id == @current_user.organisation_id
         render json: @http_log
       end
