@@ -8,9 +8,9 @@ class ChartsController < ApplicationController
     now = Time.now
     logs_scope = HttpLog.all
 
-    if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-      logs_scope = logs_scope.joins(:application).where(applications: { organisation_id: @current_user.organisation_id })
-    end
+    # if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
+    #   logs_scope = logs_scope.joins(:application).where(applications: { organisation_id: @current_user.organisation_id })
+    # end
 
     render json: {
       total: logs_scope.count,
@@ -21,7 +21,7 @@ class ChartsController < ApplicationController
   end
 
 
-  # Returns the distribution of HttpLogs by HttpMethod (GET, POST, PUT, DELETE, HEAD, OPTIONS, CONNECT, TRACE, PATCH)
+  # Returns the distribution of HttpLogs by HttpMethod (GET, POST, PUT, DELETE, HEAD, OPTIONS, CONNECT, TRACE, PATCH) - Pie chart
   def http_logs_by_method
     method_counts = HttpLog.group(:http_method).count
     render json: method_counts
@@ -35,7 +35,7 @@ class ChartsController < ApplicationController
 
   # Returns the number of HttpLogs for each organization as a bar chart
   def http_logs_by_organization
-    org_counts = HttpLog.joins(application: :organization).group("organizations.name").count
+    org_counts = HttpLog.joins(application: :organisation).group("organisations.name").count
     render json: org_counts
   end
 
@@ -47,7 +47,11 @@ class ChartsController < ApplicationController
 
   # Returns the number of AlertEvents sent over time as a line chart
   def alert_events_over_time
-    event_counts = AlertEvent.group_by_day(:created_at).count
+    event_counts = AlertEvent.select("DATE(created_at) as date, COUNT(*) as count")
+                             .group("DATE(created_at)")
+                             .order("date ASC")
+                             .map { |r| [r.date, r.count] }
+                             .to_h
     render json: event_counts
   end
 
