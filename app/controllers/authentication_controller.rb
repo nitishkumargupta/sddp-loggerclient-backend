@@ -1,6 +1,8 @@
 require 'jwt'
 
+# It is responsible for authenticating the credentials of the user
 class AuthenticationController < ApplicationController
+  # Before authentication we can not have authenticated user
   skip_before_action :set_current_user
 
   def authenticate

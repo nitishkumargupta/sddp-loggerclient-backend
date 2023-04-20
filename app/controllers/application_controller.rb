@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::API
+  # setting logged-in user before each action is eecuted
   before_action :set_current_user
 
+  # default response if someone tries to access unauthorised end-point
   rescue_from RoleCheckError do |_exception|
     render json: { error: "You don't have permission to perform this action" }, status: :forbidden
   end
 
   def set_current_user
+    # fetching bearer token from the request's headers
     auth_header = request.headers['Authorization']
     return if auth_header.nil?
 

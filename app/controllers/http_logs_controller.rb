@@ -2,6 +2,8 @@ class HttpLogsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
   include ResponseHeaders
+  # Only Super Admin can perform create, update, and destroy action
+  before_action -> { check_role_permissions('ROLE_ADMIN']) }, only: [:update, :destroy, :create]
   before_action :set_http_log, only: [:show, :update, :destroy]
 
   def index
@@ -31,7 +33,6 @@ class HttpLogsController < ApplicationController
   end
 
   def create
-    current_user_has_role?('ROLE_ADMIN')
     @http_log = HttpLog.new(http_log_params)
     if @http_log.save
       render json: @http_log, status: :created, location: @http_log
@@ -41,7 +42,6 @@ class HttpLogsController < ApplicationController
   end
 
   def update
-    current_user_has_role?('ROLE_ADMIN')
     if @http_log.update(http_log_params)
       render json: @http_log, status: :ok, location: @http_log
     else
@@ -50,7 +50,6 @@ class HttpLogsController < ApplicationController
   end
 
   def destroy
-    current_user_has_role?('ROLE_ADMIN')
     @http_log.destroy
     head :no_content
   end
