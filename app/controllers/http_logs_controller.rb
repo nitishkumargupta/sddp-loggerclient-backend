@@ -3,7 +3,7 @@ class HttpLogsController < ApplicationController
   include PaginationAndSorting
   include ResponseHeaders
   # Only Super Admin can perform create, update, and destroy action
-  before_action -> { check_role_permissions('ROLE_ADMIN']) }, only: [:update, :destroy, :create]
+  before_action -> { check_role_permissions('ROLE_ADMIN') }, only: [:update, :destroy, :create]
   before_action :set_http_log, only: [:show, :update, :destroy]
 
   def index

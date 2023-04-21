@@ -53,11 +53,7 @@ module PaginationAndSorting
 
     # Calculate the total count based on the current scope
     resource_variable = instance_variable_get("@#{controller_name.downcase.pluralize}")
-    if resource_variable.is_a?(ActiveRecord::Relation)
-      response.headers['X-Total-Count'] = resource_variable.count.to_s if resource_variable
-    elsif resource_variable.is_a?(Array)
-      response.headers['X-Total-Count'] = resource_variable.size.to_s if resource_variable
-    end
+    response.headers['X-Total-Count'] = resource_variable.size.to_s if resource_variable
   end
 
 end

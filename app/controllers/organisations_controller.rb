@@ -2,9 +2,9 @@ class OrganisationsController < ApplicationController
   include RoleCheck
   include PaginationAndSorting
   include ResponseHeaders
-  before_action -> { check_role_permissions('ROLE_ADMIN ROLE_ORGANIZATION_ADMIN']) }, only: [:index, :show, :update]
+  before_action -> { check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN]) }, only: [:index, :show, :update]
   # Only Super Admin can perform create and destroy action
-  before_action -> { check_role_permissions('ROLE_ADMIN']) }, only: [:create, :destroy]
+  before_action -> { check_role_permissions('ROLE_ADMIN') }, only: [:create, :destroy]
   before_action :set_organisation, only: [:show, :update]
 
   def index

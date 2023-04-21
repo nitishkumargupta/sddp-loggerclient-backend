@@ -7,6 +7,7 @@ class AccountController < ApplicationController
     password = params[:password]
     org_name = params[:orgName]
     org_address = params[:orgAddress]
+    org_code = params[:orgCode]
 
     # Check if the email is already in use
     if User.exists?(email: email)
@@ -15,7 +16,7 @@ class AccountController < ApplicationController
     end
 
     # Create the new organisation or find an existing one
-    organisation = Organisation.find_or_create_by(name: org_name, address: org_address)
+    organisation = Organisation.find_or_create_by(name: org_name, address: org_address, code: org_code, email: email)
 
     # Create the new user
     user = User.new(email: email, password: password, first_name: organisation.name, organisation: organisation)
