@@ -28,8 +28,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    current_user_has_role?('ROLE_ADMIN')
-    @user = User.new(user_params.except(:authorities))
+    current_user_has_role?(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN])
+    @user = User.new(user_params)
+    @user.organisation_id = @current_user.organisation_id
 
     if @user.save
       if user_params[:authorities].present?
