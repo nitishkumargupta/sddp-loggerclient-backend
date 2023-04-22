@@ -30,17 +30,31 @@ class KafkaConsumer
 
   private
 
-  # TODO: Find another method as this one makes delays when there is an insert error
   def save_http_log(payload)
     parsed_payload = JSON.parse(payload)
-    http_log = HttpLog.new(parsed_payload)
-
-    # TODO: Find application by token not id to save it with the log
-
-    if http_log.save
-      puts "HttpLog saved with ID: #{http_log.id}"
-    else
-      puts "Failed to save HttpLog: #{http_log.errors.full_messages.join(', ')}"
+    application_id = parsed_payload["application_id"]
+    response_status_code = parsed_payload["http_status_code"]
+    return until is_valid_application?(application_id)
+    if check_for_alert?(response_status_code,application_id)
+      SendAlertMailerJob.set(wait: 20.seconds).perform_later(application_id, parsed_payload)
     end
+    http_log = HttpLog.new(parsed_payload)
+    
+    unless http_log.save
+      SendMailToDevJob.set(wait: 1.seconds).perform_now(parsed_payload,http_log.errors.full_messages.join(', '))
+    end
+  end
+  
+  def is_valid_application?(application_id)
+    return fetch_application_server(application_id).present?
+  end
+  
+  def fetch_application_server(application_id)
+    ApplicationServerManagement::ApplicationServer.find(application_id)
+  end
+
+  def check_for_alert?(response_status_code,application_id)
+    application = fetch_application_server(application_id)
+    return application.alert_response_codes.include?(response_status_code.to_s)
   end
 end
