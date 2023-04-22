@@ -33,7 +33,7 @@ class Admin::UsersController < ApplicationController
     @user.organisation_id = @current_user.organisation_id
 
     if @user.save
-      if user_params[:authorities].present?
+      if params[:authorities].present?
         update_user_authorities(@user, params[:authorities])
       end
       render json: @user, status: :created
@@ -45,7 +45,7 @@ class Admin::UsersController < ApplicationController
   def update
     current_user_has_role?('ROLE_ADMIN')
 
-    if @user.update(user_params.except(:authorities))
+    if @user.update(user_params)
       update_user_authorities(@user, params[:authorities])
       render json: @user, status: :ok
     else
