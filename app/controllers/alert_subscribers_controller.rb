@@ -6,7 +6,7 @@ class AlertSubscribersController < ApplicationController
   before_action -> { check_role_permissions(['ROLE_ORGANIZATION_ADMIN']) }
   # Setting alert subscriber before action is executed
   before_action :set_alert_subscribers
-  before_action :set_alert_subscriber, only: [:edit, :show, :destroy]
+  before_action :set_alert_subscriber, only: [:edit, :show, :destroy, :update]
 
   def index
     query = params[:query]
@@ -17,7 +17,12 @@ class AlertSubscribersController < ApplicationController
   end
 
   def show
-    render json: @alert_subscriber.to_json
+    subscriptions = Subscription.where(alert_subscriber_id: @alert_subscriber.id)
+    applications = []
+    subscriptions.each do |subscription|
+      applications << subscription.application_server
+    end
+    render json: @alert_subscriber.attributes.merge(applications: applications).to_json
   end
 
   def create

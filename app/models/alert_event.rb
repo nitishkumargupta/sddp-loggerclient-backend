@@ -1,5 +1,6 @@
 # app/models/alert_event.rb
 class AlertEvent < ApplicationRecord
+  belongs_to :subscription
   belongs_to :alert_subscriber
 
   validates :code, presence: true

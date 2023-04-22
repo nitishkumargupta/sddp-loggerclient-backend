@@ -14,11 +14,14 @@ class AlertEventsController < ApplicationController
     q = params[:q]
     alert_events = @alert_events&.ransack(q)&.result
     alert_events = apply_pagination_and_sorting(alert_events, query)
+    alert_events = alert_events.map do |event|
+      event.attributes.merge(alertSubscriber: event.alert_subscriber)
+    end
     render json: alert_events, status: :ok
   end
 
   def show
-    render json: @alert_event.to_json
+    render json: @alert_event.attributes.merge(alertSubscriber: @alert_event.alert_subscriber).to_json
   end
 
   # Create a new alert event

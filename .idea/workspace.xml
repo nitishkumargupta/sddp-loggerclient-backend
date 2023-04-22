@@ -61,6 +61,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
+    <list default="true" id="e36e3365-be25-4fd4-9c0b-b0f2f8f6c8df" name="Changes" comment="charts">
+      <change beforePath="$PROJECT_DIR$/.idea/sddp-loggerclient-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sddp-loggerclient-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/kafka.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/kafka.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
