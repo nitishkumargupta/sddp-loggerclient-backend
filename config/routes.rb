@@ -57,6 +57,6 @@ Rails.application.routes.draw do
              }
   get '/member-data', to: 'members#show'
 
-  match '*path', to: 'application#fallback_index_html', via: :all, constraints: lambda { |req| req.path.exclude? 'rails/active_storage' }
+  match '*path', to: 'application#fallback_index_html', via: :all
 
 end
