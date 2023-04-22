@@ -5,7 +5,7 @@ class KafkaConsumer
     @topic = topic
     @config = {
       'bootstrap.servers': 'localhost:9092', # Replace with your Kafka broker addresses
-      'group.id': 'kafka-app-consumer',
+      'group.id': 'http-logs-group',
       'auto.offset.reset': 'latest'
     }
   end
