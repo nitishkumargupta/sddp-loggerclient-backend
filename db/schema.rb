@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_22_173037) do
   create_table "action_mailbox_inbound_emails", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
@@ -65,7 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
     t.bigint "alert_subscriber_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "subscription_id"
     t.index ["alert_subscriber_id"], name: "fk_alert_event__alert_subscriber_id"
+    t.index ["subscription_id"], name: "fk_rails_3d879f90a9"
   end
 
   create_table "alert_subscribers", charset: "utf8mb3", force: :cascade do |t|
@@ -83,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "organisation_id"
+    t.text "alert_response_codes"
   end
 
   create_table "application_server_management_tokens", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -171,7 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "alert_events", "alert_subscribers"
+  add_foreign_key "alert_events", "subscriptions"
   add_foreign_key "http_logs", "application_server_management_application_servers", column: "application_id"
   add_foreign_key "user_authorities", "authorities", column: "authority_name", primary_key: "name"
   add_foreign_key "user_authorities", "users"

@@ -1,7 +1,7 @@
 # app/models/alert_subscriber.rb
 class AlertSubscriber < ApplicationRecord
-  has_many :alert_events
   has_many :subscriptions
+  has_many :alert_events, through: "subscriptions"
   has_many :application_servers, through: "subscriptions"
   belongs_to :organisation
 

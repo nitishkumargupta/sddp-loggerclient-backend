@@ -1,7 +1,5 @@
-GIT
-  remote: git@github.com:nitishkumargupta/application_server_management.git
-  revision: ae3fb40183401d1e5589f2e6d07aac1b75f15c91
-  branch: main
+PATH
+  remote: /Users/nitish/SHU/System Design/application_server_management
   specs:
     application_server_management (0.1.0)
       rails (>= 7.0.4.3)
