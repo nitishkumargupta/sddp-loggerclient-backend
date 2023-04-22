@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alert from your application <%= @application.code%></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>Hello,</p>
+<p>You got an alert for the application <%= @application.name%> for which you are subscribed.</p>
+<p>Please act immediately. Following is the log</p>
+<p>
+  <%=@payload%>
+</p>
+<p>Regards</p>
+</body>
+</html>

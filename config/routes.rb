@@ -1,7 +1,9 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   mount ApplicationServerManagement::Engine => "/api"
+  mount Sidekiq::Web => "/sidekiq"
 
   scope '/api' do
     post 'authenticate', to: 'authentication#authenticate'
