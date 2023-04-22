@@ -16,6 +16,8 @@ gem 'rack-cors'
 gem "mysql2"
 gem "figaro"
 gem 'groupdate'
+gem 'searchkick'
+gem 'elasticsearch', '~> 7.14'
 
 gem "rswag"
 # gem "application_server_management", path: '/Users/nitish/SHU/System Design/application_server_management'

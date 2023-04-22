@@ -68,3 +68,13 @@ To run app you need:
   ```sh
   sidekiq
   ```
+
+- Start Kafka docker image
+  ```sh
+  sudo docker-compose -f docker/kafka.yml up -d
+  ```
+
+- Start Elastic docker image
+  ```sh
+  sudo docker-compose -f docker/elasticsearch.yml up -d
+  ```

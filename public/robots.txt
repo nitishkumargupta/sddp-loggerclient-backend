@@ -1,1 +1,10 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+# robotstxt.org/
+
+User-agent: *
+Disallow: /api/account
+Disallow: /api/account/change-password
+Disallow: /api/account/sessions
+Disallow: /api/logs/
+Disallow: /api/users/
+Disallow: /management/
+Disallow: /v3/api-docs/
