@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_25_133313) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_08_053137) do
   create_table "action_mailbox_inbound_emails", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
@@ -58,6 +58,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_133313) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "alert_events", charset: "utf8mb3", force: :cascade do |t|
+    t.string "code"
+    t.string "application_code"
+    t.boolean "is_sent"
+    t.bigint "alert_subscriber_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alert_subscriber_id"], name: "fk_alert_event__alert_subscriber_id"
+  end
+
+  create_table "alert_subscribers", charset: "utf8mb3", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "application_server_management_application_servers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -87,6 +105,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_133313) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "http_logs", charset: "utf8mb3", force: :cascade do |t|
+    t.datetime "request_timestamp", null: false
+    t.string "http_method", null: false
+    t.string "request_url", null: false
+    t.string "http_status_code", null: false
+    t.string "remote_ip_address", null: false
+    t.integer "duration", null: false
+    t.text "request_headers", null: false
+    t.text "response_headers", null: false
+    t.text "request_url_parameters"
+    t.text "request_body"
+    t.text "response_body"
+    t.text "request_cookies"
+    t.text "response_cookies"
+    t.bigint "application_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_id"], name: "fk_http_log__application_id"
+  end
+
   create_table "jwt_denylist", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
@@ -98,6 +136,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_133313) do
     t.string "code"
     t.string "address"
     t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "alert_subscriber_id", null: false
+    t.string "application_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -126,6 +171,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_25_133313) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "alert_events", "alert_subscribers"
+  add_foreign_key "http_logs", "application_server_management_application_servers", column: "application_id"
   add_foreign_key "user_authorities", "authorities", column: "authority_name", primary_key: "name"
   add_foreign_key "user_authorities", "users"
 end

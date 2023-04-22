@@ -6,6 +6,8 @@ ruby "3.2.1"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
+gem 'ransack'
+gem 'rdkafka'
 gem 'devise'
 gem 'devise-jwt'
 gem 'rack-cors'
@@ -13,6 +15,7 @@ gem 'rack-cors'
 # gem "sqlite3", "~> 1.4"
 gem "mysql2"
 gem "figaro"
+gem 'groupdate'
 
 gem "rswag"
 # gem "application_server_management", path: '/Users/nitish/SHU/System Design/application_server_management'
@@ -51,10 +54,14 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "rspec-rails"
   gem "rswag-specs"
+  gem 'rubocop'
 end
 
 group :development do
+  gem 'letter_opener'
+
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
 
+gem "sidekiq", "~> 7.0"

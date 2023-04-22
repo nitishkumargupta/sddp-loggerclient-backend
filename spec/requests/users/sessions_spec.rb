@@ -13,17 +13,17 @@ RSpec.describe 'users/sessions', type: :request do
           password: { type: :string }
         },
         required: true,
-        example: {email: "test@example.com", password: "12345678"}
+        example: { email: "test@example.com", password: "12345678" }
       }
       response(200, 'successful') do
         produces 'application/json'
-        schema type: :object, 
-        properties: {
-          message: { type: :string },
-          id_token: { type: :string }
-        },
-        example: {message: "You are logged in.", id_token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjc4OTA4MTMyLCJleHAiOjE2Nzg5MTE3MzIsImp0aSI6ImRjYTMwNWUxLWJlNjMtNDNjMi04ZWZmLWZkM2I1MGQ4NTcwMCJ9.mEp5ME7MNBSC_io1DUZdYBJIMQqE497bz9LOIrZJs3g"}
-      
+        schema type: :object,
+               properties: {
+                 message: { type: :string },
+                 id_token: { type: :string }
+               },
+               example: { message: "You are logged in.", id_token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjc4OTA4MTMyLCJleHAiOjE2Nzg5MTE3MzIsImp0aSI6ImRjYTMwNWUxLWJlNjMtNDNjMi04ZWZmLWZkM2I1MGQ4NTcwMCJ9.mEp5ME7MNBSC_io1DUZdYBJIMQqE497bz9LOIrZJs3g" }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -50,16 +50,16 @@ RSpec.describe 'users/sessions', type: :request do
   path '/users/sign_out' do
 
     delete('delete session') do
-      security [ BearerAuth: [] ]
-      
+      security [BearerAuth: []]
+
       response(200, 'successful') do
         produces 'application/json'
-        schema type: :object, 
-        properties: {
-          message: { type: :string }
-        },
-        example: {message: "You are logged out."}
-      
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
+               },
+               example: { message: "You are logged out." }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -72,12 +72,12 @@ RSpec.describe 'users/sessions', type: :request do
 
       response(401, 'unauthorized') do
         produces 'application/json'
-        schema type: :object, 
-        properties: {
-          message: { type: :string }
-        },
-        example: {message: "Hmm nothing happened."}
-        
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
+               },
+               example: { message: "Hmm nothing happened." }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
