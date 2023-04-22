@@ -20,7 +20,7 @@ class KafkaConsumer
       if message
         puts "Received message: #{message.payload} at offset #{message.offset}"
         begin
-          save_http_log(message.payload)
+          # save_http_log(message.payload)
         rescue => e
           puts "Error processing message: #{e.message}"
         end
