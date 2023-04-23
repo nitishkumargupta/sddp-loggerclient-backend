@@ -10,8 +10,7 @@ class HttpLogsController < ApplicationController
 
   def index
     query = params[:query]
-    q = params[:q]
-    @http_logs=HttpLog.ransack(q).result
+    q = params[:q] || {}
     @http_logs = if current_user_has_role?('ROLE_ADMIN')
                    HttpLog.ransack(q).result
                  else
