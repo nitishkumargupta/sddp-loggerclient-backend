@@ -1,16 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Alert from your application <%= @application.code%></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Alert from your application <%= @application.code %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <p>Hello,</p>
-<p>You got an alert for the application <%= @application.name%> for which you are subscribed.</p>
-<p>Please act immediately. Following is the log</p>
-<p>
-  <%=@payload%>
-</p>
-<p>Regards</p>
+
+<p>You got an alert for the application <%= @application.name %> for which you are subscribed.</p>
+
+<p>Please act immediately. Following is the log:</p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>ID</th>
+    <th>Application ID</th>
+    <th>Duration</th>
+    <th>HTTP Method</th>
+    <th>Status Code</th>
+    <th>Remote IP Address</th>
+    <th>Request Body</th>
+    <th>Request Cookies</th>
+    <th>Request Headers</th>
+    <th>Request Timestamp</th>
+    <th>Request URL</th>
+    <th>Request URL Parameters</th>
+    <th>Response Body</th>
+    <th>Response Cookies</th>
+    <th>Response Headers</th>
+  </tr>
+  <tr>
+    <td><%=@payload.id %></td>
+    <td><%=@payload.application_id %></td>
+    <td><%=@payload.duration %></td>
+    <td><%=@payload.http_method %></td>
+    <td><%=@payload.http_status_code %></td>
+    <td><%=@payload.remote_ip_address %></td>
+    <td><%=@payload.request_body %></td>
+    <td><%=@payload.request_cookies %></td>
+    <td><%=@payload.request_headers %></td>
+    <td><%=@payload.request_timestamp %></td>
+    <td><%=@payload.request_url %></td>
+    <td><%=@payload.request_url_parameters %></td>
+    <td><%=@payload.response_body %></td>
+    <td><%=@payload.response_cookies %></td>
+    <td><%=@payload.response_headers %></td>
+  </tr>
+</table>
+
+<p>Regards,</p>
 </body>
 </html>
