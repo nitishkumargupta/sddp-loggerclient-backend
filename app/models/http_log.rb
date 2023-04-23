@@ -1,6 +1,6 @@
 # app/models/http_log.rb
 class HttpLog < ApplicationRecord
-  # searchkick
+  searchkick
 
   belongs_to :application, class_name: 'ApplicationServerManagement::ApplicationServer', foreign_key: 'application_id'
 
