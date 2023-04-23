@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b1980ed-b9db-4954-aa84-59327a1d62b4" name="Changes" comment="test">
+      <change beforePath="$PROJECT_DIR$/.idea/sddp-loggerclient-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sddp-loggerclient-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/http_logs_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/http_logs_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/http_log.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/http_log.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/kafka_consumer.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/kafka_consumer.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/initializers/kafka_consumer_initializer.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/initializers/kafka_consumer_initializer.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +67,10 @@
       </EXTENSION>
       <EXTENSION ID="org.jetbrains.plugins.ruby.rails.run.RailsRunConfigurationExtension" SCRATCH_USE_RAILS_RUNNER="false" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="8080" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="Default" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="default" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="development" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
       <method v="2" />
@@ -121,6 +124,11 @@
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_TESTOPTS" VALUE="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Rails.sddp-loggerclient-backend" />
+      <item itemvalue="Rake.spec: sddp-loggerclient-backend" />
+      <item itemvalue="Rake.test: sddp-loggerclient-backend" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SpringUtil" SPRING_PRE_LOADER_OPTION="true" RAKE_SPRING_PRE_LOADER_OPTION="true" RAILS_SPRING_PRE_LOADER_OPTION="true" />
@@ -131,7 +139,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682190892991</updated>
-      <workItem from="1682190894414" duration="2450000" />
+      <workItem from="1682190894414" duration="6885000" />
     </task>
     <task id="LOCAL-00001" summary="redis">
       <created>1682192330713</created>
@@ -154,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682193235205</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="test">
+      <created>1682193404735</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682193404736</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +192,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1682191677662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
+    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1682277641653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
   </component>
 </project>

@@ -11,10 +11,12 @@ class HttpLogsController < ApplicationController
   def index
     query = params[:query]
     q = params[:q]
+    @http_logs=HttpLog.ransack(q).result
     @http_logs = if current_user_has_role?('ROLE_ADMIN')
                    HttpLog.ransack(q).result
                  else
-                   HttpLog.joins(:application).where(application: { organisation_id: @current_user.organisation_id })
+                   q_with_organisation_id = q.merge(application_organisation_id_eq: @current_user.organisation_id)
+                   HttpLog.joins(:application).ransack(q_with_organisation_id).result
                  end
 
     @http_logs = if query.present?
