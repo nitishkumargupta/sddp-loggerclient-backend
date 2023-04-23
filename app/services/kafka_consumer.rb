@@ -1,29 +1,28 @@
-require 'rdkafka'
+# require 'rdkafka'
+require 'kafka'
 
 class KafkaConsumer
   def initialize(topic)
     @topic = topic
-    @config = {
-      'bootstrap.servers': 'localhost:9092', # Replace with your Kafka broker addresses
-      'group.id': 'http-logs-group',
-      'auto.offset.reset': 'latest'
-    }
   end
 
   def run
-    consumer = Rdkafka::Config.new(@config).consumer
+    kafka = Kafka.new(['localhost:9092'])
+
+    # Consumers with the same group id will form a Consumer Group together.
+    consumer = kafka.consumer(group_id: "logger-client")
     consumer.subscribe(@topic)
 
-    puts "Starting to consume messages from #{@topic}"
+    # Stop the consumer when the SIGTERM signal is sent to the process.
+    # It's better to shut down gracefully than to kill the process.
+    trap("TERM") { consumer.stop }
 
-    consumer.each do |message|
-      if message
-        puts "Received message: #{message.payload} at offset #{message.offset}"
-        begin
-          # save_http_log(message.payload)
-        rescue => e
-          puts "Error processing message: #{e.message}"
-        end
+    # This will loop indefinitely, yielding each message in turn.
+    consumer.each_message do |message|
+      begin
+        save_http_log(message.value)
+      rescue => e
+        puts "Error processing message: #{e.message}"
       end
     end
   end

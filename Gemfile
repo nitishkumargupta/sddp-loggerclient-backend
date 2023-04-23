@@ -7,7 +7,7 @@ ruby "3.2.1"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
 gem 'ransack'
-gem 'rdkafka'
+gem 'ruby-kafka'
 gem 'devise'
 gem 'devise-jwt'
 gem 'rack-cors'
