@@ -1,16 +1,10 @@
 class ChartsController < ApplicationController
   include RoleCheck
 
-  # TODO :: make it not public
-  #
   # Returns the total number of HttpLogs in the last 24 hours, 7 days, and 30 days and all
   def http_logs_by_timeframe
     now = Time.now
     logs_scope = HttpLog.all
-
-    # if current_user_has_role?('ROLE_ORGANIZATION_ADMIN')
-    #   logs_scope = logs_scope.joins(:application).where(applications: { organisation_id: @current_user.organisation_id })
-    # end
 
     render json: {
       total: logs_scope.count,

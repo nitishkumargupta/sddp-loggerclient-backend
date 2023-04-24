@@ -19,7 +19,6 @@ class HttpLogsController < ApplicationController
                  end
 
     @http_logs = if query.present?
-                   # TODO: : fix paging
                    HttpLog.search(query).results
                  else
                    apply_pagination_and_sorting(@http_logs, query)

@@ -13,6 +13,7 @@ class AlertSubscribersController < ApplicationController
     q = params[:q]
     alert_subscribers = @alert_subscribers.ransack(q).result
     alert_subscribers = apply_pagination_and_sorting(alert_subscribers, query)
+    alert_subscribers = alert_subscribers.map{|subscriber| subscriber.attributes.merge(applications: subscriber.application_servers.pluck(:code))}
     render json: alert_subscribers, status: :ok
   end
 
