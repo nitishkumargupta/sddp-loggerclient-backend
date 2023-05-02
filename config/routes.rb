@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     end
 
     resources :organizations, only: %w(index show create update destroy), controller: 'organisations'
-    resources :'http-logs', only: %w(index show create update destroy), controller: 'http_logs', as: 'http_logs'
+    resources "http-logs", only: %w(index show create update destroy), controller: 'http_logs', as: 'http_logs' do
+      collection do
+        get :export_csv
+      end
+    end
 
     get 'charts/http_logs_by_timeframe', to: 'charts#http_logs_by_timeframe'
     get 'charts/http_logs_by_method', to: 'charts#http_logs_by_method'

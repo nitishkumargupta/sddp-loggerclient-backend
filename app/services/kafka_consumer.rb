@@ -7,7 +7,7 @@ class KafkaConsumer
   end
 
   def run
-    kafka = Kafka.new(['localhost:9092'])
+    kafka = Kafka.new(['127.0.0.1:9092'])
 
     # Consumers with the same group id will form a Consumer Group together.
     consumer = kafka.consumer(group_id: "logger-client")

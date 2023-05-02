@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'csv'
 
 class HttpLogsController < ApplicationController
   include RoleCheck
@@ -59,7 +60,32 @@ class HttpLogsController < ApplicationController
     head :no_content
   end
 
+  def export_csv
+    # Fetch the logs based on the filters
+    # q = params[:q] || {}
+    # q_with_organisation_id = q.merge(application_organisation_id_eq: @current_user.organisation_id)
+    @http_logs = HttpLog.all
+
+    # Generate the CSV content
+    csv_content = generate_csv(@http_logs)
+
+    # Set the response headers and return the CSV content
+    send_data csv_content, filename: "http_logs_#{Time.zone.now.to_date}.csv", type: "text/csv"
+  end
+
   private
+
+  def generate_csv(http_logs)
+    CSV.generate(headers: true) do |csv|
+      # Define the CSV headers
+      csv << %w[id request_timestamp http_method request_url http_status_code remote_ip_address duration]
+
+      # Iterate through the logs and add each row to the CSV
+      http_logs.each do |log|
+        csv << [log.id, log.request_timestamp, log.http_method, log.request_url, log.http_status_code, log.remote_ip_address, log.duration]
+      end
+    end
+  end
 
   def set_http_log
     @http_log = HttpLog.find(params[:id])

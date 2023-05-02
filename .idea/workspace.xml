@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b1980ed-b9db-4954-aa84-59327a1d62b4" name="Changes" comment="edit for html email">
-      <change afterPath="$PROJECT_DIR$/public/528.d6616ff54258b087.js" afterDir="false" />
+    <list default="true" id="8b1980ed-b9db-4954-aa84-59327a1d62b4" name="Changes" comment="front end update">
+      <change afterPath="$PROJECT_DIR$/public/651.327048961aa9c405.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/43.e698f5510aed62b2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/43.c8a0814f40f56779.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/528.159ecd4454ae1751.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/http_logs_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/http_logs_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/kafka_consumer.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/kafka_consumer.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/651.512d37445c71a8fe.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/ngsw.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/ngsw.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/runtime.2024e8d962a8d386.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/runtime.720312841ce17659.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/runtime.720312841ce17659.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/runtime.2c811ab99f8d60ef.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +150,8 @@
       <option name="presentableId" value="Default" />
       <updated>1682190892991</updated>
       <workItem from="1682190894414" duration="10659000" />
-      <workItem from="1682293334330" duration="938000" />
+      <workItem from="1682293334330" duration="1070000" />
+      <workItem from="1683018482022" duration="1391000" />
     </task>
     <task id="LOCAL-00001" summary="redis">
       <created>1682192330713</created>
@@ -213,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682283322283</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="front end update">
+      <created>1682983551772</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682983551772</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,9 +247,10 @@
     <MESSAGE value="frontend" />
     <MESSAGE value="edit" />
     <MESSAGE value="edit for html email" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit for html email" />
+    <MESSAGE value="front end update" />
+    <option name="LAST_COMMIT_MESSAGE" value="front end update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1682282211826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
+    <SUITE FILE_PATH="coverage/sddp_loggerclient_backend@sddp_loggerclient_backend.rcov" NAME="sddp-loggerclient-backend Coverage Results" MODIFIED="1683019431448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="sddp-loggerclient-backend" />
   </component>
 </project>
