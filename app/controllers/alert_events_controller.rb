@@ -58,8 +58,12 @@ class AlertEventsController < ApplicationController
 
   # Fetching all the alert events for the logged-in user
   def set_alert_events
-    subscriber_ids = @current_user.organisation.alert_subscribers.pluck(:id)
-    @alert_events = AlertEvent.where(alert_subscriber_id: subscriber_ids)
+    if current_user_has_role?('ROLE_ADMIN')
+      @alert_events = AlertEvent.all
+    else
+      subscriber_ids = @current_user.organisation.alert_subscribers.pluck(:id)
+      @alert_events = AlertEvent.where(alert_subscriber_id: subscriber_ids)
+    end
   end
 
   # Fetching alert event based on id
