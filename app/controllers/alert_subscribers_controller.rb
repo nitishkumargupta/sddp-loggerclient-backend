@@ -3,7 +3,7 @@ class AlertSubscribersController < ApplicationController
   include PaginationAndSorting
   include ResponseHeaders
   # Only user(s) with these role(s) are allowed to access Alert Subscribers
-  before_action -> { check_role_permissions(['ROLE_ORGANIZATION_ADMIN']) }
+  before_action -> { check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN]) }
   # Setting alert subscriber before action is executed
   before_action :set_alert_subscribers
   before_action :set_alert_subscriber, only: [:edit, :show, :destroy, :update]

@@ -3,7 +3,7 @@ class AlertEventsController < ApplicationController
   include PaginationAndSorting
   include ResponseHeaders
   # Only user(s) with these role(s) are allowed to access Alert Events
-  before_action -> { check_role_permissions(['ROLE_ORGANIZATION_ADMIN']) }
+  before_action -> { check_role_permissions(%w[ROLE_ADMIN ROLE_ORGANIZATION_ADMIN]) }
   
   # Setting alert events before each action is executed
   before_action :set_alert_events, except: [:create]
