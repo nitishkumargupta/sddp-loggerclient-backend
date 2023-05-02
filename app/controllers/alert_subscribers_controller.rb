@@ -67,7 +67,11 @@ class AlertSubscribersController < ApplicationController
   
   # Fetching alert subscribers of logged-in organisation user
   def set_alert_subscribers
-    @alert_subscribers = @current_user.organisation.alert_subscribers
+    if current_user_has_role?('ROLE_ADMIN')
+      @alert_subscribers = AlertSubscriber.all
+    else
+      @alert_subscribers = @current_user.organisation.alert_subscribers
+    end
   end
 
   # Fetching alert subscriber based on id
